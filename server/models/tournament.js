@@ -68,6 +68,8 @@
        ],
      },
    ],
- });
+ },{
+  collection: "tournaments"
+});
  
  module.exports = mongoose.model('tournament', TournamentModel);
