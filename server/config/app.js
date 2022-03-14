@@ -52,6 +52,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../public')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
 
+/*
 //setup express session
 app.use(session({
   secret: "SomeSecret",
@@ -68,9 +69,9 @@ app.use(passport.session());
 
 // passport user configuration
 
-// create a User Model Instance(First create model and then add below lines)
-let tournamentModel = require('../models/tournament');
-// let Tournament = tournamentModel.Tournament;
+// create a User model instance
+let userModel = require('../models/user');
+let User = userModel.User;
 
 // implement a User Authentication Strategy
 passport.use(User.createStrategy());
@@ -78,7 +79,7 @@ passport.use(User.createStrategy());
 // serialize and deserialize the User info
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
+*/
 
 // routing
 app.use('/', indexRouter);
