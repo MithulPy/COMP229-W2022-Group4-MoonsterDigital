@@ -12,8 +12,8 @@
 
 module.exports =
 {
-"URI" : "mongodb://localhost/tournament_details"
+//"URI" : "mongodb://localhost/tournament_details"
 //"URI" : "mongodb+srv://mongoUser:@-cluste.swheq.mongodb.net/?retryWrites=true&w=majority"
-
+"URI":"mongodb+srv://admin:sz2gQiR8M8VrWBG7@mongodbserver.n1he7.mongodb.net/tournament_brackets?retryWrites=true&w=majority"
 
 }
