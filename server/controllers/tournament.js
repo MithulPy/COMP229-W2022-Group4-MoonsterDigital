@@ -14,19 +14,17 @@ let router = express.Router();
 //importing model
 let Tournament = require('../models/tournament');
 
-
 // displaying list method and ordering by name
 module.exports.displayTournaments = (req, res, next) => {
 
     let query =  Tournament.find().sort({"name":1} );   //filtering and ordering with mongoose method
-   query.exec((err, tournamenstList) => {               //calling exect method to be able to execute an arrow method using the sorted list
+   query.exec((err, tournamentList) => {               //calling exect method to be able to execute an arrow method using the sorted list
     if (err) {
         return console.error(err);
     }
     else {
-        console.log(tournamenstList);
-        res.render("<h1> Tournaments List <h1/>");
-       // res.render('contact/list', { title: 'Contact List', ContactList: contactList, displayName: req.user ? req.user.displayName : "" });
+        console.log(tournamentList);
+        res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
     }
 });
 }
@@ -43,8 +41,7 @@ module.exports.displayEditPage = (req, res, next) => {
             res.end(err);
         } else {
             console.log(tournamentToEdit);
-            res.render("<h1> Edit page <h1/>");
-            //res.render('contact/edit', { title: 'Update Contact', contact: contactToEdit, displayName: req.user ? req.user.displayName : "" })
+            res.render('tournament/details', { title: 'Edit Tournament', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
         }
 
     });
@@ -76,18 +73,14 @@ module.exports.processEditPage = (req, res, next) => {
                 res.end(err);
              }else{
                  //res.redirect('/');
-                 res.render('<h1> Updated <h1/>');
-             }
-        
+                 res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
+             }        
         })
 
-    } catch (e ){
+    } catch (e){
         console.log(e); 
         res.end(err)
-         
     }
- 
-    
 }
 
 //deleting callback
@@ -98,8 +91,7 @@ module.exports.performDelete =  (req, res, next) => {
             console.log(err);
             res.end(err);
          }else{
-             res.redirect('/contacts');
+            res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
          }
-
     })
 }
