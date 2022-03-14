@@ -15,4 +15,10 @@ let indexController = require('../controllers/index');
 /** GET route to home */
 router.get('/', indexController.displayHomePage);
 
+/** GET route to login */
+router.get('/login', indexController.displayLoginPage);
+
+/** GET route to register */
+router.get('/register', indexController.displayRegisterPage);
+
 module.exports = router;
