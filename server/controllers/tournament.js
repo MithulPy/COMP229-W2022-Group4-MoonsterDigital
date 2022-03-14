@@ -23,10 +23,18 @@ module.exports.displayTournaments = (req, res, next) => {
         return console.error(err);
     }
     else {
-        console.log(tournamentList);
+        console.log("entered list page",tournamentList);
+        res.send('<h1>List page </h1>');
         res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
     }
 });
+}
+
+
+module.exports.displayAddPage = (req,res,next)=>{
+
+    console.log("Entered add page");
+    res.send('<h1>Add page </h1>');
 }
 
 
@@ -40,8 +48,9 @@ module.exports.displayEditPage = (req, res, next) => {
             console.log(err);
             res.end(err);
         } else {
-            console.log(tournamentToEdit);
-            res.render('tournament/details', { title: 'Edit Tournament', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
+            console.log("entered edit page",tournamentToEdit);
+            res.send('<h1>Edit page </h1>');
+            res.render('tournament/details', { title: 'Edit Tournament', Tournament: tournamentToEdit, displayName: /*req.user ? req.user.displayName :*/ "" });
         }
 
     });
@@ -73,7 +82,7 @@ module.exports.processEditPage = (req, res, next) => {
                 res.end(err);
              }else{
                  //res.redirect('/');
-                 res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
+                 res.render('tournament/list', { title: 'Tournament List', Tournament: updatedTornament, displayName: /*req.user ? req.user.displayName :*/ "" });
              }        
         })
 
