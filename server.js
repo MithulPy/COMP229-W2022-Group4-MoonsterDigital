@@ -6,7 +6,7 @@
  * @CourseName Web Application Development SEC005
  */
 
- var app = require("./server/Config/app.js");
+ var app = require("./server/config/app.js");
  var debug = require('debug')('expresssite:server');
  var http = require('http');
  
