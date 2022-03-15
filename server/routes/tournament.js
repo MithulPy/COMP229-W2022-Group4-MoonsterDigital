@@ -12,8 +12,10 @@
   
  let tournamentController = require('../controllers/tournament');
  
+
+ 
  /** Show Tournaments available  */
- router.get('/', tournamentController.displayTournaments);
+ router.get('/list', tournamentController.displayTournaments);
 
   /** Displa */
   router.get('/edit', tournamentController.displayEditPage);

@@ -46,7 +46,6 @@ module.exports.displayAddPage = (req, res, next) => {
 module.exports.processAddPage = (req, res, next) => {
 
     let addTournament = tournament({
-        "_id" :id,
         "owner" : req.body.owner,
         "title": req.body.title,
         "description" : req.body.description,
@@ -85,7 +84,7 @@ module.exports.displayEditPage = (req, res, next) => {
         } else {
             console.log("entered edit page",tournamentToEdit);
             res.send('<h1>Edit page </h1>');
-            res.render('tournament/details', { title: 'Edit Tournament', Tournament: tournamentToEdit, displayName: /*req.user ? req.user.displayName :*/ "" });
+            res.render('tournament/edit', { title: 'Edit Tournament', Tournament: tournamentToEdit, displayName: /*req.user ? req.user.displayName :*/ "" });
         }
 
     });

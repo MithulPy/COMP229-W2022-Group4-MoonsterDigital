@@ -1,53 +1,55 @@
 <% include ../partials/header.ejs %>
 <%- include ../partials/main_nav.ejs %>
+<%- include ../partials/body.ejs %>
+
 
  <!-- MAIN CONTENT -->
  <div class="container">
     <div class="row">
-        <h1><%= title %></h1>
+        <h1 style="color:white;"><%= title %></h1>
           <form class="form" method="post">
             <div class="form-group">
-                <label for="ownerTextField">Owner</label>
+                <label style="color:white;" for="ownerTextField">Owner</label>
                 <input type="text" class="form-control" id="ownerTextField"
                 placeholder="Owner" name="owner"  required>
             </div>
             <div class="form-group">
-              <label for="titleTextField">Title</label>
+              <label style="color:white;"for="titleTextField">Title</label>
               <input type="text" class="form-control" id="titleTextField"
               placeholder="title" name="title"  required>
             </div>
             <div class="form-group">
-              <label for="descriptionTextField">Description</label>
+              <label style="color:white;" for="descriptionTextField">Description</label>
               <textarea type="text" class="form-control" id="descriptionTextField"
               placeholder="description" name="description" required></textarea>
             </div>
             <div class="form-group">
-              <label for="isActiveTextField">Active</label>
+              <label  style="color:white;" for="isActiveTextField">Active</label>
               <input type="text" class="form-control" id="isActiveTextField"
               placeholder="isActive" name="isActive" required>
             </div>
             <div class="form-group">
-              <label for="isCompletedTextField">Completed</label>
+              <label style="color:white;"  for="isCompletedTextField">Completed</label>
               <input type="text" class="form-control" id="isCompletedTextField"
               placeholder="isCompleted" name="isCompleted" required>
             </div>
             <div class="form-group">
-              <label for="playersTextField">Players</label>
+              <label style="color:white;"  for="playersTextField">Players</label>
               <input type="text" class="form-control" id="playersTextField"
               placeholder="players" name="players" required>
             </div>
             <div class="form-group">
-                <label for="startDateTextField">Start Date</label>
+                <label  style="color:white;" for="startDateTextField">Start Date</label>
                 <input type="date" class="form-control" id="startDateTextField"
                 placeholder="startDate" name="startDate" required>
             </div>
             <div class="form-group">
-                <label for="endDateTextField">End Date</label>
+                <label  style="color:white;" for="endDateTextField">End Date</label>
                 <input type="date" class="form-control" id="endDateTextField"
                 placeholder="endDate" name="endDate" required>
             </div>
             <div class="form-group">
-                <label for="roundsTextField">Rounds</label>
+                <label  style="color:white;" for="roundsTextField">Rounds</label>
                 <input type="text" class="form-control" id="roundsTextField"
                 placeholder="rounds" name="rounds" required>
             </div>

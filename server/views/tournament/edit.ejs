@@ -1,53 +1,56 @@
 
 <% include ../partials/header.ejs %>
+<%- include ../partials/main_nav.ejs %>
+
+<%- include ../partials/body.ejs %>
 
 <main class="container">
     <div class="row">
-        <h1><%=title%> </h1>
+        <h1 style="color:white;"><%=title%> </h1>
         <form class="form" method="POST">
 
             <div class="form-group">
-                <label for="ownerTextField">Owner</label>
+                <label style="color:white;" for="ownerTextField">Owner</label>
                 <input type="text" class="form-control" id="ownerTextField"
                 placeholder="owner" name="owner" value="<%=tournament.owner%>" required>
               </div>
             <div class="form-group">
-              <label for="titleTextField">Title</label>
+              <label style="color:white;" for="titleTextField">Title</label>
               <input type="text" class="form-control" id="titleTextField"
               placeholder="title" name="title" value="<%=tournament.title%>" required>
             </div>
             <div class="form-group">
-              <label for="descriptionTextField">Description</label>
+              <label style="color:white;" for="descriptionTextField">Description</label>
               <textarea type="text" class="form-control" id="descriptionTextField"
               placeholder="Description" name="description" value="<%=tournament.description%>" required></textarea>
             </div>
             <div class="form-group">
-              <label for="priceTextField">Active</label>
+              <label style="color:white;"for="priceTextField">Active</label>
               <input type="text" class="form-control" id="priceTextField"
               placeholder="isActive" name="isActive" value="<%=tournament.isActive%>" required>
             </div>
             <div class="form-group">
-              <label for="isCompletedTextField">isCompleted</label>
+              <label style="color:white;" for="isCompletedTextField">isCompleted</label>
               <input type="text" class="form-control" id="isCompletedTextField"
               placeholder="isCompleted" name="isCompleted" value="<%=tournament.isCompleted%>" required>
             </div>
             <div class="form-group">
-                <label for="playersTextField">Players</label>
+                <label style="color:white;" for="playersTextField">Players</label>
                 <input type="text" class="form-control" id="playersTextField"
                 placeholder="players" name="players" value="<%=tournament.players%>" required>
             </div>
             <div class="form-group">
-                <label for="startDateTextField">Start Date</label>
+                <label style="color:white;"for="startDateTextField">Start Date</label>
                 <input type="date" class="form-control" id="startDateTextField"
                 placeholder="startDate" name="startDate" value="<%=tournament.startDate%>" required>
             </div>
             <div class="form-group">
-                <label for="endDateTextField">End Date</label>
+                <label style="color:white;"for="endDateTextField">End Date</label>
                 <input type="date" class="form-control" id="endDateTextField"
                 placeholder="endDate" name="endDate" value="<%=tournament.endDate%>" required>
             </div>
             <div class="form-group">
-                <label for="roundsTextField">Rounds</label>
+                <label style="color:white;"for="roundsTextField">Rounds</label>
                 <input type="text" class="form-control" id="roundsTextField"
                 placeholder="rounds" name="rounds" value="<%=tournament.rounds%>" required>
             </div>
