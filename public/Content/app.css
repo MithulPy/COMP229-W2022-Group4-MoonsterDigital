@@ -6,6 +6,10 @@
  * @CourseName Web Application Development SEC005
  */
 
+ body {
+  height: 1054px;
+  background-color: #FFF;
+}
   p {
     color: #c9c6c6;
   }

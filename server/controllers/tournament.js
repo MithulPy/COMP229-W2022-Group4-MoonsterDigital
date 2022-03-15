@@ -33,6 +33,7 @@ module.exports.displayTournaments = (req, res, next) => {
 module.exports.displayAddPage = (req,res,next)=>{
 
     console.log("Entered add page");
+    res.send('<h1>Add page </h1>');
 }
 
 
