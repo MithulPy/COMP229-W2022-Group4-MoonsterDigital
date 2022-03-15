@@ -20,6 +20,8 @@
    /** Displa */
    router.get('/add', tournamentController.displayAddPage);
     /** Displa */
+    router.post('/add', tournamentController.processAddPage);
+
   router.post('/delete', tournamentController.performDelete);
 
  

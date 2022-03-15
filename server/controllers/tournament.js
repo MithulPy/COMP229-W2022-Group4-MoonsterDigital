@@ -9,6 +9,7 @@
 //importing modules
 let express = require('express');
 let mongoose = require('mongoose');
+const tournament = require('../models/tournament');
 let router = express.Router();
 
 //importing model
@@ -30,13 +31,48 @@ module.exports.displayTournaments = (req, res, next) => {
 }
 
 
-module.exports.displayAddPage = (req,res,next)=>{
+//  GET the tournament Details page in order to add new tournament
+module.exports.displayAddPage = (req, res, next) => {
+    
+    let addTournament = tournament();
 
-    console.log("Entered add page");
-    res.send('<h1>Add page </h1>');
+    res.render('tournament/add', {
+        title: 'Add a new tournament',
+        tournament: addTournament
+    })      
+
 }
+// POST process the tournament Details page and create new Movies - CREATE
+module.exports.processAddPage = (req, res, next) => {
 
+    let addTournament = tournament({
+        "_id" :id,
+        "owner" : req.body.owner,
+        "title": req.body.title,
+        "description" : req.body.description,
+        "isActive" : req.body.isActive,
+        "isCompleted": req.body.isCompleted,
+        "players" : req.body.players,
+        "startDate" : req.body.startDate,
+        "endDate": req.body.endDate,
+        "rounds" : req.body.rounds, 
+    });
 
+    tournament.create(addTournament, (err, tournament) =>{
+        if(err)
+        {
+            console.log(err);
+            res.end(err);
+        }
+        else
+        {
+            // refresh the movie list
+            console.log(tournament);
+            res.redirect('/tournament/list');
+        }
+    });
+
+}
 //displaying edit page
 module.exports.displayEditPage = (req, res, next) => {
     let id = req.params.id;         // retrieving id
