@@ -24,7 +24,6 @@ module.exports.displayTournaments = (req, res, next) => {
     }
     else {
         console.log("entered list page",tournamentList);
-        res.send('<h1>List page </h1>');
         res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
     }
 });
@@ -34,7 +33,6 @@ module.exports.displayTournaments = (req, res, next) => {
 module.exports.displayAddPage = (req,res,next)=>{
 
     console.log("Entered add page");
-    res.send('<h1>Add page </h1>');
 }
 
 
