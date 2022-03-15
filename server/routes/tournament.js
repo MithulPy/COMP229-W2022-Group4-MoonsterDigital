@@ -16,15 +16,20 @@
  
  /** Show Tournaments available  */
  router.get('/list', tournamentController.displayTournaments);
+/* GET Route for the Edit tournament page - Update Operation */
+router.get('/edit/:id', tournamentController.displayEditPage);
 
-  /** Displa */
-  router.get('/edit', tournamentController.displayEditPage);
-   /** Displa */
-   router.get('/add', tournamentController.displayAddPage);
-    /** Displa */
-    router.post('/add', tournamentController.processAddPage);
+/* Post Route for the Edit tournament page - Update Operation */
+router.post('/edit/:id', tournamentController.processEditPage);
 
-  router.post('/delete', tournamentController.performDelete);
+router.get('/add', tournamentController.displayAddPage);
+
+router.post('/add', tournamentController.processAddPage);
+
+
+
+/* GET Route for the Delete tournament page - Delete Operation */
+router.get('/delete/:id', tournamentController.performDelete);
 
  
  module.exports = router;
