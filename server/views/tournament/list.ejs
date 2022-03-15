@@ -7,7 +7,7 @@
   <!-- Main Content -->
   <main class="container">
     <div class="row">
-        <div class="offset-md-1 col-md-11">
+        <div class="">
             <h1 style="color:white;"><%= title %></h1>
 
                 <a href="/tournament/add" class="btn btn-primary" role="button">
@@ -24,8 +24,8 @@
                         <th class="text-center col-1">isActive </th>
                         <th class="text-center col-1">isActive</th>
                         <th class="text-center col-1">players</th>
-                        <th class="text-center col-2">startDate </th>
-                        <th class="text-center col-2">endDate</th>
+                        <th class="text-center col-1">startDate </th>
+                        <th class="text-center col-1">endDate</th>
                         <th class="text-center col-1">rounds</th>
 
                     <% } else { %>
@@ -35,8 +35,8 @@
                       <th class="text-center col-1">isActive </th>
                       <th class="text-center col-1">isActive</th>
                       <th class="text-center col-1">players</th>
-                      <th class="text-center col-2">startDate </th>
-                      <th class="text-center col-2">endDate</th>
+                      <th class="text-center col-1">startDate </th>
+                      <th class="text-center col-1">endDate</th>
                       <th class="text-center col-1">rounds</th>           
                     <% } %>
                 </tr>
@@ -52,15 +52,15 @@
                             <td class="text-center col-1"><%= Tournament[count].isActive %></td>
                             <td class="text-center col-1"><%= Tournament[count].isCompleted %></td>
                             <td class="text-center col-1"><%= Tournament[count].players %></td>
-                            <td class="text-center col-2"><%= Tournament[count].startDate %></td>
-                            <td class="text-center col-2"><%= Tournament[count].endDate %></td>
+                            <td class="text-center col-1"><%= Tournament[count].startDate %></td>
+                            <td class="text-center col-1"><%= Tournament[count].endDate %></td>
                             <td class="text-center col-1"><%= Tournament[count].rounds %></td>
        
-                            <td class="text-center col-2">
+                            <td class="text-center col-1">
                                 <a href="/tournament/edit/<%= Tournament[count]._id %>" class="btn btn-primary btn-sm">
                                 <i class="fas fa-pencil-alt"></i> Update</a>
                             </td>
-                            <td class="text-center col-2">
+                            <td class="text-center col-1">
                                 <a href="/tournament/delete/<%= Tournament[count]._id %>" class="btn btn-danger btn-sm">
                                 <i class="fas fa-trash-alt"></i> Delete</a>
                             </td>
@@ -71,9 +71,19 @@
                           <td class="text-center col-1"><%= Tournament[count].isActive %></td>
                           <td class="text-center col-1"><%= Tournament[count].isCompleted %></td>
                           <td class="text-center col-1"><%= Tournament[count].players %></td>
-                          <td class="text-center col-2"><%= Tournament[count].startDate %></td>
-                          <td class="text-center col-2"><%= Tournament[count].endDate %></td>
+                          <td class="text-center col-1"><%= Tournament[count].startDate %></td>
+                          <td class="text-center col-1"><%= Tournament[count].endDate %></td>
                           <td class="text-center col-1"><%= Tournament[count].rounds %></td>
+
+                                 
+                            <td class="col-1">
+                                <a href="/tournament/edit/<%= Tournament[count]._id %>" class="btn btn-primary btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Update</a>
+                            </td>
+                            <td class="col-1">
+                                <a href="/tournament/delete/<%= Tournament[count]._id %>" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i> Delete</a>
+                            </td>
 
                          <% } %>
                     </tr>
