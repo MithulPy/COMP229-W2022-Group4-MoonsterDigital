@@ -1,64 +1,96 @@
-<% include ../partials/header.ejs %>
+<%- include ../partials/header.ejs %>
 
- <!-- MAIN CONTENT -->
- <div class="container">
+<%- include ../partials/main_nav.ejs %>
+
+
+  <!-- Main Content -->
+  <main class="container">
     <div class="row">
-        <h1><%= title %></h1>
-          <form class="form" method="post">
-            <div class="form-group">
-                <label for="ownerTextField">Owner</label>
-                <input type="text" class="form-control" id="ownerTextField"
-                placeholder="owner" name="owner"  required>
-              </div>
-            <div class="form-group">
-              <label for="titleTextField">Title</label>
-              <input type="text" class="form-control" id="titleTextField"
-              placeholder="title" name="title"  required>
-            </div>
-            <div class="form-group">
-              <label for="descriptionTextField">Description</label>
-              <textarea type="text" class="form-control" id="descriptionTextField"
-              placeholder="Description" name="description" required></textarea>
-            </div>
-            <div class="form-group">
-              <label for="priceTextField">Active</label>
-              <input type="text" class="form-control" id="priceTextField"
-              placeholder="isActive" name="isActive" required>
-            </div>
-            <div class="form-group">
-              <label for="isCompletedTextField">isCompleted</label>
-              <input type="text" class="form-control" id="isCompletedTextField"
-              placeholder="isCompleted" name="isCompleted" required>
-            </div>
-            <div class="form-group">
-                <label for="playersTextField">Players</label>
-                <input type="text" class="form-control" id="playersTextField"
-                placeholder="players" name="players" required>
-            </div>
-            <div class="form-group">
-                <label for="startDateTextField">Start Date</label>
-                <input type="date" class="form-control" id="startDateTextField"
-                placeholder="startDate" name="startDate" required>
-            </div>
-            <div class="form-group">
-                <label for="endDateTextField">End Date</label>
-                <input type="date" class="form-control" id="endDateTextField"
-                placeholder="endDate" name="endDate" required>
-            </div>
-            <div class="form-group">
-                <label for="roundsTextField">Rounds</label>
-                <input type="text" class="form-control" id="roundsTextField"
-                placeholder="rounds" name="rounds" required>
-            </div>
-              
+        <div class="offset-md-1 col-md-11">
+            <h1><%= title %></h1>
 
+            <% if(typeof displayName == 'string' && displayName) { %>
+                <a href="/tournament/add" class="btn btn-primary" role="button">
+                <i class="fas fa-plus-circle"></i> Add contact information</a>
+            <% } %>
+            <br>
 
-            <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
-            <a href="/tournament" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
-          </form>
-      </div>
+            <table style="position:relative; top:10px;" id="sortTable" class="table table-sortable table-bordered table-striped table-dark table-hover">
+                <!-- Header Row-->
+                <tr class="d-flex">
+                    <% if(typeof displayName == 'string' && displayName) { %>
+                        <th class="text-center col-1">Owner</th>
+                        <th class="text-center col-1">Title</th>
+                        <th class="text-center col-2">description</th>
+                        <th class="text-center col-1">isActive </th>
+                        <th class="text-center col-1">isActive</th>
+                        <th class="text-center col-1">players</th>
+                        <th class="text-center col-2">startDate </th>
+                        <th class="text-center col-2">endDate</th>
+                        <th class="text-center col-1">rounds</th>
+
+                    <% } else { %>
+                      <th class="text-center col-1">Owner</th>
+                      <th class="text-center col-1">Title</th>
+                      <th class="text-center col-2">description</th>
+                      <th class="text-center col-1">isActive </th>
+                      <th class="text-center col-1">isActive</th>
+                      <th class="text-center col-1">players</th>
+                      <th class="text-center col-2">startDate </th>
+                      <th class="text-center col-2">endDate</th>
+                      <th class="text-center col-1">rounds</th>           
+                    <% } %>
+                </tr>
+
+                <!-- Repeatable Template Row -->
+
+                <% for(let count = 0; count < Tournament.length; count++) { %>
+                    <tr class="d-flex">
+                        <% if(typeof displayName == 'string' && displayName) { %>
+                            <td class="text-center col-1"><%= Tournament[count].owner %></td>
+                            <td class="text-center col-1"><%= Tournament[count].title %></td>
+                            <td class="text-center col-2"><%= Tournament[count].description %></td>
+                            <td class="text-center col-1"><%= Tournament[count].isActive %></td>
+                            <td class="text-center col-1"><%= Tournament[count].isCompleted %></td>
+                            <td class="text-center col-1"><%= Tournament[count].players %></td>
+                            <td class="text-center col-2"><%= Tournament[count].startDate %></td>
+                            <td class="text-center col-2"><%= Tournament[count].endDate %></td>
+                            <td class="text-center col-1"><%= Tournament[count].rounds %></td>
+       
+                            <td class="text-center col-2">
+                                <a href="/tournament/edit/<%= Tournament[count]._id %>" class="btn btn-primary btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Update</a>
+                            </td>
+                            <td class="text-center col-2">
+                                <a href="/tournament/delete/<%= Tournament[count]._id %>" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i> Delete</a>
+                            </td>
+                         <% } else { %>
+                          <td class="text-center col-1"><%= Tournament[count].owner %></td>
+                          <td class="text-center col-1"><%= Tournament[count].title %></td>
+                          <td class="text-center col-2"><%= Tournament[count].description %></td>
+                          <td class="text-center col-1"><%= Tournament[count].isActive %></td>
+                          <td class="text-center col-1"><%= Tournament[count].isCompleted %></td>
+                          <td class="text-center col-1"><%= Tournament[count].players %></td>
+                          <td class="text-center col-2"><%= Tournament[count].startDate %></td>
+                          <td class="text-center col-2"><%= Tournament[count].endDate %></td>
+                          <td class="text-center col-1"><%= Tournament[count].rounds %></td>
+
+                         <% } %>
+                    </tr>
+                <% } %>
+            </table>
+
+        </div>
     </div>
-  </div>
+  </main>
+  
+<%- include ../partials/bottom_nav.ejs %>  
+
+<%- include ../partials/footer.ejs %>
+  
 
 
-<% include ../partials/footer.ejs %>
+
+
+
