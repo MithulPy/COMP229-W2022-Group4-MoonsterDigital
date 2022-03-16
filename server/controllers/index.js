@@ -10,8 +10,23 @@
 let express = require('express');
 let router = express.Router();
 
+//importing model
+let Tournament = require('../models/tournament');
+
 module.exports.displayHomePage = (req, res, next) => {
-  res.render('index', { title: 'Home', displayName: /*req.user ? req.user.displayName :*/ ''});
+  //res.render('index', { title: 'Home', displayName: /*req.user ? req.user.displayName :*/ ''});
+
+  // only display the active tournaments
+  let query =  Tournament.find({"isActive":true}).sort({"name":1} );   //filtering and ordering with mongoose method
+  query.exec((err, tournamentList) => {               //calling exect method to be able to execute an arrow method using the sorted list
+   if (err) {
+       return console.error(err);
+   }
+   else {
+       console.log("entered list page",tournamentList);
+       res.render('index', { title: 'Home', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
+   }
+});
 };
 
 module.exports.displayLoginPage = (req, res, next) => {

@@ -83,7 +83,6 @@ module.exports.displayEditPage = (req, res, next) => {
             res.end(err);
         } else {
             console.log("entered edit page",tournamentToEdit);
-            res.send('<h1>Edit page </h1>');
             res.render('tournament/edit', { title: 'Edit Tournament', Tournament: tournamentToEdit, displayName: /*req.user ? req.user.displayName :*/ "" });
         }
 
@@ -91,50 +90,58 @@ module.exports.displayEditPage = (req, res, next) => {
 
 }
 
-//processing edit post method callback
+// POST process the edit page - updateOne
 module.exports.processEditPage = (req, res, next) => {
+    
+    let id = req.params.id
 
-    try{let id = req.params.id;        //try was for debugging 
+    let updatedTornament = Tournament({
+        _id: req.body.id,
+        owner: req.body.owner,
+        title: req.body.title,
+        description: req.body.description,
+        isActive: req.body.isActive,
+        isCompleted: req.body.isCompleted,
+        players: req.body.players,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        rounds: req.body.rounds
+    });
 
-        let updatedTornament = Tournament({      //creating obj using Contact model
-            "_id" :id,
-            "owner" : req.body.owner,
-            "title": req.body.title,
-            "description" : req.body.description,
-            "isActive" : req.body.isActive,
-            "isCompleted": req.body.isCompleted,
-            "players" : req.body.players,
-            "startDate" : req.body.startDate,
-            "endDate": req.body.endDate,
-            "rounds" : req.body.rounds,    
-        });
-        
-        Contact.updateOne({_id:id},updatedTornament, (err)=>{ //updating the document that matches the id with the previous obj
-        
-            if(err){
-                console.log(err);
-                res.end(err);
-             }else{
-                 //res.redirect('/');
-                 res.render('tournament/list', { title: 'Tournament List', Tournament: updatedTornament, displayName: /*req.user ? req.user.displayName :*/ "" });
-             }        
-        })
-
-    } catch (e){
-        console.log(e); 
-        res.end(err)
-    }
-}
-
-//deleting callback
-module.exports.performDelete =  (req, res, next) => {
-    let id = req.params.id;
-    Contact.remove({_id:id}, (err) =>{      //removing document that matched the _id
-        if(err){
+    Tournament.updateOne({_id: id}, updatedTornament, (err) => {
+        if(err)
+        {
             console.log(err);
             res.end(err);
-         }else{
-            res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
-         }
-    })
+        }
+        else
+        {
+
+            res.redirect('/tournament/list');
+        }
+    });
+    
+}
+
+
+
+
+// GET - process the delete by user id
+module.exports.performDelete = (req, res, next) => {
+    
+    let id = req.params.id;
+
+    Tournament.remove({_id: id}, (err) => {
+        if(err)
+        {
+            console.log(err);
+            res.end(err);
+        }
+        else
+        {
+            // refresh the movie list
+            res.redirect('/tournament/list');
+        }
+    });
+
 }

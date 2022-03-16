@@ -24,37 +24,20 @@
                 </div>
                 <div class="justify-content-start mt-5">
                     <!-- Recent Tournaments -->
-                    <h3>Highlighted Tournaments</h3>
+                    <h3>Highlighted Active Tournaments</h3>
                     <br>
                     <div class="tournament-cards-wrapper">
+                    <% for(let count = 0; count < Tournament.length; count++) { %>                    
                         <div class="tournament-card">
                             <img src="/Assets/images/tennis.jpg" alt="" width="320" height="140">
                             <div class="tournament-details">
-                                <h5 class="tournament-title-font">International Tennis Cup - Started</h5>
-                                <p class="tournament-date-font"><i class="fa solid fa-calendar"></i> 2021/12/13 - 2022/12/13</p>
-                                <p>Players coming from 8 nations will complete for the finals.</p>
-                                <p class="tournament-player-font">Player List: Spain, Canada, Great Britain, France, Serbia, Sweden, Greece</p>
+                                <h5 class="tournament-title-font"><%= Tournament[count].title %></h5>
+                                <p class="tournament-date-font"><i class="fa solid fa-calendar"></i> <%= Tournament[count].startDate %> - <%= Tournament[count].endDate %></p>
+                                <p><%= Tournament[count].description %></p>
+                                <p class="tournament-player-font">Players: <%= Tournament[count].players %></p>
                             </div>
                         </div>
-                        <div class="tournament-card">
-                            <img src="/Assets/images/table-tennis.jpg" alt="" width="320" height="140">
-                            <div class="tournament-details">
-                                <h5 class="tournament-title-font">Table Tennis - Started</h5>
-                                <p class="tournament-date-font"><i class="fa solid fa-calendar"></i> 2021/11/25 - 2021/11/24</p>
-                                <p>Players coming from 8 nations will complete for the finals.</p>
-                                <p class="tournament-player-font">Player List: Spain, Canada, Great Britain, France, Serbia, Sweden, Greece</p>
-                            </div>
-                        </div>
-                        <div class="tournament-card">
-                            <img src="/Assets/images/football.jpg" alt="" width="320" height="140">
-                            <div class="tournament-details">
-                                <h5 class="tournament-title-font">Charity Football Cup - Not Started</h5>
-                                <p class="tournament-date-font"><i class="fa solid fa-calendar"></i> 2022/05/25 - 2022/08/24</p>
-                                <p>Players coming from 8 communities will complete for the finals.</p>
-                                <p class="tournament-player-font">Player List: Spain, Canada, Great Britain, France, Serbia, Sweden, Greece</p>
-                            </div>
-                        </div>
-                    </div>
+                    <% } %>
                 </div>
             </div>
         </main>
