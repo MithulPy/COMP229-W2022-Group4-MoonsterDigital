@@ -10,6 +10,7 @@
 let express = require('express');
 let router = express.Router();
 
+
 //importing model
 let Tournament = require('../models/tournament');
 
@@ -63,3 +64,4 @@ module.exports.displayRegisterPage = (req, res, next) => {
       return res.redirect('/');
   }
 };
+
