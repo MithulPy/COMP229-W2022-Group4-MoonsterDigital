@@ -8,7 +8,6 @@
   <main class="container">
     <div class="row">
         <div class="">
-
             <h1 style="color:white;"><%= title %></h1>
 
                 <a href="/tournament/add" class="btn btn-primary" role="button">
@@ -19,8 +18,8 @@
                 <!-- Header Row-->
                 <tr class="d-flex">
                     <% if(typeof displayName == 'string' && displayName) { %>
-                        <th class="text-center col-2">Owner</th>
-                        <th class="text-center col-2">Title</th>
+                        <th class="text-center col-1">Owner</th>
+                        <th class="text-center col-1">Title</th>
                         <th class="text-center col-2">description</th>
                         <th class="text-center col-1">isActive </th>
                         <th class="text-center col-1">isActive</th>
@@ -28,21 +27,17 @@
                         <th class="text-center col-1">startDate </th>
                         <th class="text-center col-1">endDate</th>
                         <th class="text-center col-1">rounds</th>
-                        
-
 
                     <% } else { %>
-                      <th class="text-center col-2">Owner</th>
-                      <th class="text-center col-2">Title</th>
+                      <th class="text-center col-1">Owner</th>
+                      <th class="text-center col-1">Title</th>
                       <th class="text-center col-2">description</th>
                       <th class="text-center col-1">isActive </th>
                       <th class="text-center col-1">isActive</th>
                       <th class="text-center col-1">players</th>
                       <th class="text-center col-1">startDate </th>
                       <th class="text-center col-1">endDate</th>
-                      <th class="text-center col-1">rounds</th>  
-
-         
+                      <th class="text-center col-1">rounds</th>           
                     <% } %>
                 </tr>
 
@@ -51,8 +46,8 @@
                 <% for(let count = 0; count < Tournament.length; count++) { %>
                     <tr class="d-flex">
                         <% if(typeof displayName == 'string' && displayName) { %>
-                            <td class="text-center col-2"><%= Tournament[count].owner %></td>
-                            <td class="text-center col-2"><%= Tournament[count].title %></td>
+                            <td class="text-center col-1"><%= Tournament[count].owner %></td>
+                            <td class="text-center col-1"><%= Tournament[count].title %></td>
                             <td class="text-center col-2"><%= Tournament[count].description %></td>
                             <td class="text-center col-1"><%= Tournament[count].isActive %></td>
                             <td class="text-center col-1"><%= Tournament[count].isCompleted %></td>
@@ -70,8 +65,8 @@
                                 <i class="fas fa-trash-alt"></i> Delete</a>
                             </td>
                          <% } else { %>
-                          <td class="text-center col-2"><%= Tournament[count].owner %></td>
-                          <td class="text-center col-2"><%= Tournament[count].title %></td>
+                          <td class="text-center col-1"><%= Tournament[count].owner %></td>
+                          <td class="text-center col-1"><%= Tournament[count].title %></td>
                           <td class="text-center col-2"><%= Tournament[count].description %></td>
                           <td class="text-center col-1"><%= Tournament[count].isActive %></td>
                           <td class="text-center col-1"><%= Tournament[count].isCompleted %></td>
