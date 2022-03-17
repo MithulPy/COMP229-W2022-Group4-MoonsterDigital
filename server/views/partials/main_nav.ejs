@@ -26,13 +26,13 @@
             <a class="nav-link" href="/">Home</a>
           <% } %>
           </li>
-          <li class="nav-item">
+<!--           <li class="nav-item">
           <% if (title == "Forum") { %>
             <a class="nav-link active" aria-current="page" href="/forum">Forum</a>
           <% } else { %>
             <a class="nav-link" href="/forum">Forum</a>
           <% } %>
-          </li>
+          </li> -->
           <li class="nav-item">
           <% if (title == "Tournament List") { %>
             <a class="nav-link active" aria-current="page" href="/tournament/list">Tournaments</a>
@@ -43,10 +43,10 @@
         </ul>
       </div>      
 
-      <div class="d-flex">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<!--       <div class="d-flex">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0"> -->
         <!-- Login and Logout -->
-            <% if (typeof displayName == 'string' && displayName) { %>
+<!--             <% if (typeof displayName == 'string' && displayName) { %>
               <li class="navbar-text">Welcome, <%= displayName%></li>
               <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i>  Logout</a></li>
             <% } else if (title == "Login") { %>
@@ -73,7 +73,7 @@
             <% } %>
             </li>
           </ul>
-        </div>
+        </div> -->
 
     </div>
   </nav>
