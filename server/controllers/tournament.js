@@ -25,7 +25,6 @@ module.exports.displayTournaments = (req, res, next) => {
         return console.error(err);
     }
     else {
-        //console.log("entered list page",tournamentList);
         res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
     }
 });
@@ -37,9 +36,6 @@ var counter = 0;
 module.exports.displayAddPage = (req, res, next) => {
     counter++;
     let addTournament = tournament();
-    //console.log(req.flash('MYMESSAGE'.toString()));
-    //console.log('COUNTER: ', counter, req.flash('MYMESSAGE'.toString()));
-    //console.log(req.flash('MYMESSAGE'.toString()));
     let msg = req.flash('MYMESSAGE').toString();
     console.log('COUNTER: ', counter, "lENGHT: ",msg.length, "MSG: ", msg);
     console.log('COUNTER2: ', counter, "lENGHT: ",msg.length,"MSG: ", msg);
@@ -47,7 +43,6 @@ module.exports.displayAddPage = (req, res, next) => {
 
     
     
-    //req.flash('MYMESSAGE', 'THIS IS A FLASH MESSAGE');
     res.render('tournament/add', {
         title: 'Add a new tournament',
         tournament: addTournament,
@@ -55,7 +50,7 @@ module.exports.displayAddPage = (req, res, next) => {
     })      
 
 }
-// POST process the tournament Details page and create new Movies - CREATE
+// POST process the tournament Details page and create new tournament - CREATE
 module.exports.processAddPage = (req, res, next) => {
 
     try{
@@ -75,16 +70,12 @@ module.exports.processAddPage = (req, res, next) => {
             if(err)
             {
                 console.log(err);
-                alert("invalid input data");
                 req.flash('MYMESSAGE', 'INPUT ERROR: Invalid parameters ');
-                //console.log("this is ALERT:", req.flash('ALERT').toString());
-                //res.send(req.flash('MYMESSAGE'));
                 res.redirect('/tournament/add');
             }
             else
             {
-                // refresh the movie list
-                //console.log(tournament);
+
                 res.redirect('/tournament/list');
             }
         });    

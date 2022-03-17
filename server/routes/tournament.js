@@ -16,17 +16,18 @@
  
  /** Show Tournaments available  */
  router.get('/list', tournamentController.displayTournaments);
-/* GET Route for the Edit tournament page - Update Operation */
+
+/* Post Route for the Edit tournament page - Update Operation */
 router.get('/edit/:id', tournamentController.displayEditPage);
 
 /* Post Route for the Edit tournament page - Update Operation */
 router.post('/edit/:id', tournamentController.processEditPage);
 
+/* Get Route for the Add tournament page - Update Operation */
 router.get('/add', tournamentController.displayAddPage);
 
+/* Post Route for the ADD tournament page - Update Operation */
 router.post('/add', tournamentController.processAddPage);
-
-
 
 /* GET Route for the Delete tournament page - Delete Operation */
 router.get('/delete/:id', tournamentController.performDelete);

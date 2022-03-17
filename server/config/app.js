@@ -39,7 +39,6 @@ mongoDB.once('open', ()=>{
 
 let indexRouter = require('../routes/index');
 let tournamentRouter = require('../routes/tournament');
-// let tournamentRouter = require('../routes/tournament')
 
 let app = express();
 
