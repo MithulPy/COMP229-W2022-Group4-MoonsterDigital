@@ -11,6 +11,7 @@ let express = require('express');
 let mongoose = require('mongoose');
 const tournament = require('../models/tournament');
 let router = express.Router();
+let alert = require('alert');
 
 //importing model
 let Tournament = require('../models/tournament');
@@ -24,7 +25,7 @@ module.exports.displayTournaments = (req, res, next) => {
         return console.error(err);
     }
     else {
-        console.log("entered list page",tournamentList);
+        //console.log("entered list page",tournamentList);
         res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
     }
 });
@@ -36,41 +37,55 @@ module.exports.displayAddPage = (req, res, next) => {
     
     let addTournament = tournament();
 
+    
+    console.log('Enter ALERT',typeof(req.flash('ALERT')[0]));
     res.render('tournament/add', {
         title: 'Add a new tournament',
-        tournament: addTournament
+        tournament: addTournament,
+        alert:  req.flash('ALERT').toString()
     })      
 
 }
 // POST process the tournament Details page and create new Movies - CREATE
 module.exports.processAddPage = (req, res, next) => {
 
-    let addTournament = tournament({
-        "owner" : req.body.owner,
-        "title": req.body.title,
-        "description" : req.body.description,
-        "isActive" : req.body.isActive,
-        "isCompleted": req.body.isCompleted,
-        "players" : req.body.players,
-        "startDate" : req.body.startDate,
-        "endDate": req.body.endDate,
-        "rounds" : req.body.rounds, 
-    });
+    try{
+        let addTournament = tournament({
+            "owner" : req.body.owner,
+            "title": req.body.title,
+            "description" : req.body.description,
+            "isActive" : req.body.isActive,
+            "isCompleted": req.body.isCompleted,
+            "players" : req.body.players,
+            "startDate" : req.body.startDate,
+            "endDate": req.body.endDate,
+            "rounds" : req.body.rounds, 
+        });
 
-    tournament.create(addTournament, (err, tournament) =>{
-        if(err)
-        {
-            console.log(err);
-            res.end(err);
-        }
-        else
-        {
-            // refresh the movie list
-            console.log(tournament);
-            res.redirect('/tournament/list');
-        }
-    });
+        tournament.create(addTournament, (err, tournament) =>{
+            if(err)
+            {
+                console.log(err);
+                alert("invalid input data");
+                req.flash('ALERT', 'Input error: invalid input parameters');
+                console.log("this is ALERT:", req.flash('ALERT').toString());
+                res.redirect('/tournament/add');
+            }
+            else
+            {
+                // refresh the movie list
+                //console.log(tournament);
+                res.redirect('/tournament/list');
+            }
+        });    
+    }
 
+     catch (e){
+         console.log(e);
+         res.send(e);
+     }
+    
+   
 }
 //displaying edit page
 module.exports.displayEditPage = (req, res, next) => {
@@ -82,7 +97,8 @@ module.exports.displayEditPage = (req, res, next) => {
             console.log(err);
             res.end(err);
         } else {
-            console.log("entered edit page",tournamentToEdit);
+           
+            console.log('TournamentDate:', tournamentToEdit.startDate);
             res.render('tournament/edit', { title: 'Edit Tournament', Tournament: tournamentToEdit, displayName: /*req.user ? req.user.displayName :*/ "" });
         }
 
