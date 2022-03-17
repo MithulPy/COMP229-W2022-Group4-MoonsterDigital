@@ -60,8 +60,8 @@ app.use(express.static(path.join(__dirname, '../../node_modules')));
 //setup express session
 app.use(session({
   secret: "SomeSecret",
-  saveUninitialized: false,
-  resave: false
+  saveUninitialized: true,
+  resave: true
 }));
 
 // initialize flash

@@ -31,18 +31,27 @@ module.exports.displayTournaments = (req, res, next) => {
 });
 }
 
+var counter = 0;
 
 //  GET the tournament Details page in order to add new tournament
 module.exports.displayAddPage = (req, res, next) => {
-    
+    counter++;
     let addTournament = tournament();
+    //console.log(req.flash('MYMESSAGE'.toString()));
+    //console.log('COUNTER: ', counter, req.flash('MYMESSAGE'.toString()));
+    //console.log(req.flash('MYMESSAGE'.toString()));
+    let msg = req.flash('MYMESSAGE').toString();
+    console.log('COUNTER: ', counter, "lENGHT: ",msg.length, "MSG: ", msg);
+    console.log('COUNTER2: ', counter, "lENGHT: ",msg.length,"MSG: ", msg);
+   
 
     
-    console.log('Enter ALERT',typeof(req.flash('ALERT')[0]));
+    
+    //req.flash('MYMESSAGE', 'THIS IS A FLASH MESSAGE');
     res.render('tournament/add', {
         title: 'Add a new tournament',
         tournament: addTournament,
-        alert:  req.flash('ALERT').toString()
+        alert: msg
     })      
 
 }
@@ -67,8 +76,9 @@ module.exports.processAddPage = (req, res, next) => {
             {
                 console.log(err);
                 alert("invalid input data");
-                req.flash('ALERT', 'Input error: invalid input parameters');
-                console.log("this is ALERT:", req.flash('ALERT').toString());
+                req.flash('MYMESSAGE', 'INPUT ERROR: Invalid parameters ');
+                //console.log("this is ALERT:", req.flash('ALERT').toString());
+                //res.send(req.flash('MYMESSAGE'));
                 res.redirect('/tournament/add');
             }
             else
