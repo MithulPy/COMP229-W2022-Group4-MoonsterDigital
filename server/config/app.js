@@ -12,6 +12,8 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+var flash = require('connect-flash');
+let session = require('express-session');
 
 
 // modules for authentication
@@ -51,6 +53,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../public')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
+
+//configuring Connect flash
+
+ 
+//setup express session
+app.use(session({
+  secret: "SomeSecret",
+  saveUninitialized: true,
+  resave: true
+}));
+
+// initialize flash
+app.use(flash());
+
 
 /*
 //setup express session
