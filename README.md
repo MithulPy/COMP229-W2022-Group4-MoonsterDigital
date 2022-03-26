@@ -1,3 +1,2 @@
 # COMP229-W2022-Group4-MoonsterDigital 
-Tournament Website
-A torunament website created to display acrtive torunaments ongoing, able to add,update and delete tournaments 
+A torunament website created to display active torunaments ongoing with capabilities to to add,update and delete tournaments 
