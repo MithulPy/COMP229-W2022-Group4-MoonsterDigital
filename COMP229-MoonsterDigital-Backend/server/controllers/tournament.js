@@ -25,7 +25,8 @@ module.exports.displayTournaments = (req, res, next) => {
         return console.error(err);
     }
     else {
-        res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
+        //res.render('tournament/list', { title: 'Tournament List', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
+        res.json(tournamentList);
     }
 });
 }

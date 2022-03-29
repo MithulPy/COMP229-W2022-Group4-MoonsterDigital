@@ -25,7 +25,8 @@ module.exports.displayHomePage = (req, res, next) => {
    }
    else {
        //console.log("entered list page",tournamentList);
-       res.render('index', { title: 'Home', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
+       //res.render('index', { title: 'Home', Tournament: tournamentList, displayName: /*req.user ? req.user.displayName :*/ "" });
+       res.json(tournamentList);
    }
 });
 };
