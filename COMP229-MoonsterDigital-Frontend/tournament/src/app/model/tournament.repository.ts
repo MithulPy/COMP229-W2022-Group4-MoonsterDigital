@@ -23,7 +23,9 @@ export class TournamentRepo {
         return data;
     }
 
-
+    getActiveTournaments() {
+        return this.tournaments.filter(a => a.isActive === true);
+    }
 
     saveTournament(savedTournament: Tournament): void {
         if (savedTournament._id === null || savedTournament._id === 0 || savedTournament._id === undefined) {
@@ -40,7 +42,7 @@ export class TournamentRepo {
 
     getTournaments(player: String | null): Tournament[] {
         return this.tournaments
-            .filter(b => player == null || player === b.num);
+            .filter(b => player == null || player === b.players);
     }
 
     getTournament(id: any): Tournament {
@@ -69,9 +71,9 @@ export class TournamentRepo {
     }
 
     updateTournament(data: any, id: number) {
-        this.tournaments.find(b => b._id === id)!.tour = data.name;
-        this.tournaments.find(b => b._id === id)!.num = data.players;
-        this.tournaments.find(b => b._id === id)!.date = data.schedule;
+        this.tournaments.find(b => b._id === id)!.title = data.title;
+        this.tournaments.find(b => b._id === id)!.players = data.players;
+        this.tournaments.find(b => b._id === id)!.startDate = data.startDate;
 
     }
     // updateOrder(updatedOrder: Order): void
