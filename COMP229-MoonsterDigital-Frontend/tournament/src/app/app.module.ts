@@ -19,6 +19,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddEditCommentComponent } from './pages/add-edit-comment/add-edit-comment.component';
 import { ForumTopicsComponent } from './pages/forum-topics/forum-topics.component';
 import { AddEditTopicComponent } from './pages/add-edit-topic/add-edit-topic.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 
 
@@ -30,8 +32,9 @@ const routes: Routes = [
   { path: 'forum-comments', component: ForumCommentsComponent },
   { path: 'forum/add-edit-comment', component: AddEditCommentComponent },
   { path: 'forum/forum-topics', component: ForumTopicsComponent },
-  { path: 'forum/add-edit-topic', component: AddEditTopicComponent }
- 
+  { path: 'forum/add-edit-topic', component: AddEditTopicComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent}
 
 ];
 
@@ -49,7 +52,9 @@ const routes: Routes = [
     TopicComponent,
     AddEditCommentComponent,
     ForumTopicsComponent,
-    AddEditTopicComponent
+    AddEditTopicComponent,
+    LoginComponent,
+    RegisterComponent
     
   ],
   imports: [
