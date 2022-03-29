@@ -34,7 +34,8 @@ export class RestDataSource
     this.user = new User();
     this.baseUrl1 = `http://localhost:3000/user/`;;
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
-     this.baseUrl = `http://localhost:3000/tournament/`;
+    //this.baseUrl = `http://localhost:3000/tournament/`;
+     this.baseUrl = `http://localhost:3000/api/`;;
   }
 
   getTournaments(): Observable<Tournament[]>
