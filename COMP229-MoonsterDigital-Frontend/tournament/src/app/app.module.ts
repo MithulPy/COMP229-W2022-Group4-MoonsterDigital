@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
+
+import { HomeModule } from './pages/home/home.module';
+
 import { AddTournamentComponent } from './pages/add-tournament/add-tournament.component';
-import { MainNavComponent } from './partials/main-nav/main-nav.component';
 import { FooterComponent } from './partials/footer/footer.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { TournamentListComponent } from './tournament-list/tournament-list.component';
@@ -20,13 +20,17 @@ import { AddEditCommentComponent } from './pages/add-edit-comment/add-edit-comme
 import { ForumTopicsComponent } from './pages/forum-topics/forum-topics.component';
 import { AddEditTopicComponent } from './pages/add-edit-topic/add-edit-topic.component';
 
+import { JwtModule, JwtHelperService, JwtInterceptor } from '@auth0/angular-jwt';
 
-
+export function jwtTokenGetter(): string
+{
+  return "12345";//localStorage.getItem('id_token');
+}
 
 //Routing
 const routes: Routes = [
   { path: 'add-tournament', component: AddTournamentComponent },
-  { path: '', component: HomeComponent },
+  //{ path: '', component: HomeComponent },
   { path: 'forum-comments', component: ForumCommentsComponent },
   { path: 'forum/add-edit-comment', component: AddEditCommentComponent },
   { path: 'forum/forum-topics', component: ForumTopicsComponent },
@@ -38,9 +42,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     AddTournamentComponent,
-    MainNavComponent,
     FooterComponent,
     HeaderComponent,
     TournamentListComponent,
@@ -49,13 +51,20 @@ const routes: Routes = [
     TopicComponent,
     AddEditCommentComponent,
     ForumTopicsComponent,
-    AddEditTopicComponent
+    AddEditTopicComponent,
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes)
+    HomeModule,
+    RouterModule.forRoot(routes),
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: jwtTokenGetter
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
