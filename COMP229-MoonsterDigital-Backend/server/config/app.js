@@ -40,6 +40,8 @@ mongoDB.once('open', ()=>{
 
 let indexRouter = require('../routes/index');
 let tournamentRouter = require('../routes/tournament');
+let topicRouter = require('../routes/topic');
+let commentRouter = require('../routes/comment');
 
 let app = express();
 
@@ -101,6 +103,8 @@ passport.deserializeUser(User.deserializeUser());
 // routing
 app.use('/api', indexRouter);
 app.use('/api/tournament', tournamentRouter);
+app.use('/api/topic', topicRouter);
+app.use('/api/comment', commentRouter);
 /*app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../public/index.html'));
 });*/
