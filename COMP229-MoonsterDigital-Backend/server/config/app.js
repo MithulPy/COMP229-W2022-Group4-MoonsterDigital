@@ -14,6 +14,7 @@ let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 var flash = require('connect-flash');
 let session = require('express-session');
+let cors = require('cors');
 
 
 // modules for authentication
@@ -52,6 +53,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../public')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
+app.use(cors());
 
 //configuring Connect flash
 
@@ -97,8 +99,11 @@ passport.deserializeUser(User.deserializeUser());
 */
 
 // routing
-app.use('/', indexRouter);
-app.use('/tournament', tournamentRouter);
+app.use('/api', indexRouter);
+app.use('/api/tournament', tournamentRouter);
+/*app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../public/index.html'));
+});*/
 
 
 // catch 404 and forward to error handler
