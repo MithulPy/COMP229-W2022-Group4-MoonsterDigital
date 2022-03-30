@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tournament } from './tournament.model';
 import { Topic } from './topic.model';
+import { Comment } from './comment.model';
 import { map } from 'rxjs/operators';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -55,9 +56,15 @@ export class RestDataSource
     return this.http.get<Comment[]>(this.baseUrl + 'comment/list');
   }
 
+  addComment(comment: Comment): Observable<Comment>
+  {
+    console.log(JSON.stringify(comment));
+    return this.http.post<Comment>(this.baseUrl + 'comment/add', comment);
+  }
+
   getTournaments(): Observable<Tournament[]>
   {
-    return this.http.get<Tournament[]>(this.baseUrl + '');
+    return this.http.get<Tournament[]>(this.baseUrl + 'tournament/list');
   }
 
   addTournaments(tour: Tournament): Observable<Tournament>
