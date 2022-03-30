@@ -9,6 +9,7 @@
  export class Comment{
     constructor(
         public _id?:number,
+        public topicId?: number,
         public title?:String,
         public date?:Date,
         public content?:String,
@@ -21,6 +22,7 @@
         Comment
         -------------------------------
         Id         : ${this._id}
+        Topic Id   : ${this.topicId}
         Title      : ${this.title}
         Date       : ${this.date}
         Content    : ${this.content}
