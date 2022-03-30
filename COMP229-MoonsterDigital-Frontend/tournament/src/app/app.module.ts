@@ -23,6 +23,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 
 import { JwtModule, JwtHelperService, JwtInterceptor } from '@auth0/angular-jwt';
+import { AdminModule } from './admin/admin.module';
 
 export function jwtTokenGetter(): string
 {
@@ -37,8 +38,6 @@ const routes: Routes = [
   { path: 'forum/add-edit-comment', component: AddEditCommentComponent },
   { path: 'forum/forum-topics', component: ForumTopicsComponent },
   { path: 'forum/add-edit-topic', component: AddEditTopicComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent}
 
 ];
 
@@ -55,14 +54,13 @@ const routes: Routes = [
     AddEditCommentComponent,
     ForumTopicsComponent,
     AddEditTopicComponent,
-    LoginComponent,
-    RegisterComponent
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HomeModule,
+    AdminModule,
     RouterModule.forRoot(routes),
 
     JwtModule.forRoot({
