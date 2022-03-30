@@ -24,6 +24,10 @@ import { RegisterComponent } from './pages/register/register.component';
 
 import { JwtModule, JwtHelperService, JwtInterceptor } from '@auth0/angular-jwt';
 import { AdminModule } from './admin/admin.module';
+import { ForumModule } from './forum/forum.module';
+
+import { TopicRepo } from 'src/app/model/topic.repository';
+import { CommentRepo } from './model/comment.repository';
 
 export function jwtTokenGetter(): string
 {
@@ -61,6 +65,7 @@ const routes: Routes = [
     AppRoutingModule,
     HomeModule,
     AdminModule,
+    ForumModule,
     RouterModule.forRoot(routes),
 
     JwtModule.forRoot({
@@ -69,7 +74,7 @@ const routes: Routes = [
       }
     })
   ],
-  providers: [],
+  providers: [TopicRepo, CommentRepo],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
