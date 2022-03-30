@@ -7,12 +7,12 @@ import { AuthComponent } from './admin/auth/auth.component';
 import { RegisterComponent } from './admin/register/register.component';
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent, data: {title: 'Home'}},
-  {path: 'login', component: AuthComponent ,data: {title: 'Login'}},
-  {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: '**', redirectTo: '/home', pathMatch: 'full'}
-
+  { path: 'home', component: HomeComponent, data: { title: 'Home' } },
+  { path: 'login', component: AuthComponent, data: { title: 'Login' } },
+  { path: 'register', component: RegisterComponent, data: { title: 'Register' } },
+  { path: 'forum', loadChildren: () => import('./forum/forum.module').then(m => m.ForumModule)},
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' },
 
 ];
 
