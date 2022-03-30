@@ -33,7 +33,7 @@ export class AuthComponent implements OnInit
             if (data.success)
             {
               this.auth.storeUserData(data.token, data.user);
-              this.router.navigateByUrl('/tournament-list');
+              this.router.navigateByUrl('/');
             }
           });
         });
