@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tournament } from './tournament.model';
+import { Topic } from './topic.model';
 import { map } from 'rxjs/operators';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -36,6 +37,22 @@ export class RestDataSource
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
     //this.baseUrl = `http://localhost:3000/tournament/`;
      this.baseUrl = `http://localhost:3000/api/`;;
+  }
+
+  getTopics(): Observable<Topic[]>
+  {
+    return this.http.get<Topic[]>(this.baseUrl + 'topic/list');
+  }
+
+  addTopic(topic: Topic): Observable<Topic>
+  {
+    console.log(JSON.stringify(topic));
+    return this.http.post<Topic>(this.baseUrl + 'topic/add', topic);
+  }
+
+  getComments(): Observable<Comment[]>
+  {
+    return this.http.get<Comment[]>(this.baseUrl + 'comment/list');
   }
 
   getTournaments(): Observable<Tournament[]>
