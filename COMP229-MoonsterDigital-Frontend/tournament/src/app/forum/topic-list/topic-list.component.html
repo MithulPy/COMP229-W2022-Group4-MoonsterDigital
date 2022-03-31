@@ -29,7 +29,7 @@
                     <div class="card-header">
                         <div class="mr-4 mt-2">
                             <h5>{{topic.topicTitle}}</h5>
-                            <p class="forum-date"> Posted by {{topic.username}} on {{topic.date}}</p>
+                            <p class="forum-date"> Posted by {{ topic.username }} on {{ getSplittedISODateString(topic.date!) }}</p>
                         </div>
                     </div>
                 </div>
