@@ -40,17 +40,16 @@ module.exports.displayAddPage = (req, res, next) => {
     let msg = req.flash('MYMESSAGE').toString();
     console.log('COUNTER: ', counter, "lENGHT: ",msg.length, "MSG: ", msg);
     console.log('COUNTER2: ', counter, "lENGHT: ",msg.length,"MSG: ", msg);
-   
-
     
-    
-    res.render('tournament/add', {
+    /*res.render('tournament/add', {
         title: 'Add a new tournament',
         tournament: addTournament,
         alert: msg
-    })      
+    })  */
 
+    res.json({success: true, msg: 'Succesfully Displayed Add Page'}); 
 }
+
 // POST process the tournament Details page and create new tournament - CREATE
 module.exports.processAddPage = (req, res, next) => {
 
@@ -71,13 +70,14 @@ module.exports.processAddPage = (req, res, next) => {
             if(err)
             {
                 console.log(err);
-                req.flash('MYMESSAGE', 'INPUT ERROR: Invalid parameters ');
-                res.redirect('/tournament/add');
+                // req.flash('MYMESSAGE', 'INPUT ERROR: Invalid parameters ');
+                // res.redirect('/tournament/add');
+                res.end(err);
             }
             else
             {
-
-                res.redirect('/tournament/list');
+                //res.redirect('/tournament/list');
+                res.json({success: true, msg: 'Successfully Added New Tournament'});
             }
         });    
     }
@@ -100,8 +100,9 @@ module.exports.displayEditPage = (req, res, next) => {
             res.end(err);
         } else {
            
-            console.log('TournamentDate:', tournamentToEdit.startDate);
-            res.render('tournament/edit', { title: 'Edit Tournament', Tournament: tournamentToEdit, displayName: /*req.user ? req.user.displayName :*/ "" });
+            //console.log('TournamentDate:', tournamentToEdit.startDate);
+            //res.render('tournament/edit', { title: 'Edit Tournament', Tournament: tournamentToEdit, displayName: /*req.user ? req.user.displayName :*/ "" });
+            res.json({success: true, msg: 'Successfully Displayed Tournament to Edit', tournament: tournamentToEdit});
         }
 
     });
@@ -113,20 +114,20 @@ module.exports.processEditPage = (req, res, next) => {
     
     let id = req.params.id
 
-    let updatedTornament = Tournament({
-        _id: req.body.id,
-        owner: req.body.owner,
-        title: req.body.title,
-        description: req.body.description,
-        isActive: req.body.isActive,
-        isCompleted: req.body.isCompleted,
-        players: req.body.players,
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
-        rounds: req.body.rounds
+    let updatedTournament = Tournament({
+        "_id": id,
+        "owner": req.body.owner,
+        "title": req.body.title,
+        "description": req.body.description,
+        "isActive": req.body.isActive,
+        "isCompleted": req.body.isCompleted,
+        "players": req.body.players,
+        "startDate": req.body.startDate,
+        "endDate": req.body.endDate,
+        "rounds": req.body.rounds
     });
 
-    Tournament.updateOne({_id: id}, updatedTornament, (err) => {
+    Tournament.updateOne({_id: id}, updatedTournament, (err) => {
         if(err)
         {
             console.log(err);
@@ -134,15 +135,12 @@ module.exports.processEditPage = (req, res, next) => {
         }
         else
         {
-
-            res.redirect('/tournament/list');
+            //res.redirect('/tournament/list');
+            res.json({success: true, msg: 'Successfully Edited Tournmanet', tournament: updatedTournament});
         }
     });
     
 }
-
-
-
 
 // GET - process the delete by user id
 module.exports.performDelete = (req, res, next) => {
@@ -158,7 +156,8 @@ module.exports.performDelete = (req, res, next) => {
         else
         {
             // refresh the movie list
-            res.redirect('/tournament/list');
+            //res.redirect('/tournament/list');
+            res.json({success: true, msg: 'Successfully Deleted Tournament'});
         }
     });
 
