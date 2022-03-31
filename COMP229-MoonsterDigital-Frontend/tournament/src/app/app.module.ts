@@ -25,6 +25,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { JwtModule, JwtHelperService, JwtInterceptor } from '@auth0/angular-jwt';
 import { AdminModule } from './admin/admin.module';
 import { ForumModule } from './forum/forum.module';
+import { TournamentModule } from './tournament/tournament.module';
 
 import { TopicRepo } from 'src/app/model/topic.repository';
 import { CommentRepo } from './model/comment.repository';
@@ -66,6 +67,7 @@ const routes: Routes = [
     HomeModule,
     AdminModule,
     ForumModule,
+    TournamentModule,
     RouterModule.forRoot(routes),
 
     JwtModule.forRoot({
