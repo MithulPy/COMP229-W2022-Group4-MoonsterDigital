@@ -1,3 +1,11 @@
+/**
+ * @GroupName MoonsterDigital
+ * @FileName COMP229_W2022-Group4-MoonsterDigital
+ * @CourseCode COMP229
+ * @Date Mar 30th 2022
+ * @CourseName Web Application Development SEC005
+ */
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 //import { BrowserModule } from '@angular/platform-browser';
