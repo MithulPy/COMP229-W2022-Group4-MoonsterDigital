@@ -45,4 +45,8 @@ export class CommentListComponent implements OnInit {
   {
     this.router.navigateByUrl('/forum/comment/add/' + topicId);
   }
+
+  getSplittedISODateString(date: Date): string {
+    return new Date(date).toISOString().split('T')[0];
+  }
 }
