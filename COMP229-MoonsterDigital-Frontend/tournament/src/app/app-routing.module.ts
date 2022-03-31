@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'login', component: AuthComponent, data: { title: 'Login' } },
   { path: 'register', component: RegisterComponent, data: { title: 'Register' } },
   { path: 'forum', loadChildren: () => import('./forum/forum.module').then(m => m.ForumModule)},
+  { path: 'tournament', loadChildren: () => import('./tournament/tournament.module').then(m => m.TournamentModule)},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 
