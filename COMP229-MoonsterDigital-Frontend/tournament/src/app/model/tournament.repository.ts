@@ -13,33 +13,11 @@ export class TournamentRepo {
     constructor(private dataSource: RestDataSource) {
         dataSource.getTournaments().subscribe(data => {
             this.tournaments = data;
-            this.player = this.getData(data);
+            this.player = this.getPlayerData(data);
         });
     }
 
-    getData(data: any[]) {
-        data.map(b => b.players)
-            .filter((a, index, array) => array.indexOf(a) === index).sort()
-        return data;
-    }
-
-    getActiveTournaments() {
-        return this.tournaments.filter(a => a.isActive === true);
-    }
-
-    saveTournament(savedTournament: Tournament): void {
-        if (savedTournament._id === null || savedTournament._id === 0 || savedTournament._id === undefined) {
-            this.dataSource.addTournaments(savedTournament).subscribe(b => {
-                this.tournaments.push(savedTournament);
-            });
-        }
-        else {
-            this.dataSource.updateTournament(savedTournament).subscribe(tournament => {
-                this.tournaments.splice(this.tournaments.findIndex(b => b._id === savedTournament._id), 1, savedTournament);
-            });
-        }
-    }
-
+    // not in use
     getTournaments(player: String | null): Tournament[] {
         return this.tournaments
             .filter(b => player == null || player === b.players);
@@ -49,18 +27,46 @@ export class TournamentRepo {
         return this.tournaments.find(b => b._id == id)!;
     }
 
+    getAllTournaments(){
+        return this.tournaments;
+    }
+
+    getActiveTournaments() {
+        return this.tournaments.filter(a => a.isActive === true);
+    }
+
+    // below two player functions may be duplicated
+    getPlayerData(data: any[]) {
+        data.map(b => b.players)
+            .filter((a, index, array) => array.indexOf(a) === index).sort()
+        return data;
+    }
+
     getPlayers(): String[] {
         return this.player;
     }
 
-    modifyTournament(savedTournament: Tournament,id: any): void {
-        if (savedTournament._id === null || savedTournament._id === 0 ) {
+    saveTournament(savedTournament: Tournament): void {
+        if (savedTournament._id === null || savedTournament._id === 0 || savedTournament._id === undefined) {
             this.dataSource.addTournaments(savedTournament).subscribe(b => {
                 this.tournaments.push(savedTournament);
             });
         }
         else {
-            this.dataSource.modifyTour(savedTournament,id).subscribe(tournament => {
+            this.dataSource.editTournament(savedTournament).subscribe(tournament => {
+                this.tournaments.splice(this.tournaments.findIndex(b => b._id === savedTournament._id), 1, savedTournament);
+            });
+        }
+    }
+
+    modifyTournament(savedTournament: Tournament, id: any): void {
+        if (savedTournament._id === null || savedTournament._id === 0) {
+            this.dataSource.addTournaments(savedTournament).subscribe(b => {
+                this.tournaments.push(savedTournament);
+            });
+        }
+        else {
+            this.dataSource.editTournament(savedTournament).subscribe(tournament => {
                 this.tournaments.splice(this.tournaments.findIndex(b => b._id === savedTournament._id), 1, savedTournament);
             });
         }
@@ -70,19 +76,6 @@ export class TournamentRepo {
         this.tournaments.push(data);
     }
 
-    updateTournament(data: any, id: number) {
-        this.tournaments.find(b => b._id === id)!.title = data.title;
-        this.tournaments.find(b => b._id === id)!.players = data.players;
-        this.tournaments.find(b => b._id === id)!.startDate = data.startDate;
-
-    }
-    // updateOrder(updatedOrder: Order): void
-    // {
-    //   this.dataSource.updateOrder(updatedOrder).subscribe(order => {
-    //     this.orders.splice(this.orders.findIndex(o => o._id === order._id), 1, order);
-    //   });
-    // }
-
     deleteTournament(deletedTourID: number): void {
 
         this.dataSource.deleteTournament(deletedTourID).subscribe(tournament => {
@@ -90,20 +83,27 @@ export class TournamentRepo {
         });
     }
 
+    
+    updateTournament(data: any, id: number) {
+        this.tournaments.find(b => b._id === id)!.title = data.title;
+        this.tournaments.find(b => b._id === id)!.players = data.players;
+        this.tournaments.find(b => b._id === id)!.startDate = data.startDate;
+    }
+
     createUser(data: any) {
         this.users.push(data);
     }
 
     saveUser(saveUser: User): void {
-      if (saveUser._id === null || saveUser._id === 0 || saveUser._id === undefined) {
-          this.dataSource.addUser(saveUser).subscribe(b => {
-              this.users.push(saveUser);
-          });
-      }
-      else {
-          this.dataSource.updateTournament(saveUser).subscribe(tournament => {
-              this.users.splice(this.tournaments.findIndex(b => b._id === saveUser._id), 1, saveUser);
-          });
-      }
-  }
+        if (saveUser._id === null || saveUser._id === 0 || saveUser._id === undefined) {
+            this.dataSource.addUser(saveUser).subscribe(b => {
+                this.users.push(saveUser);
+            });
+        }
+        else {
+            this.dataSource.editTournament(saveUser).subscribe(tournament => {
+                this.users.splice(this.tournaments.findIndex(b => b._id === saveUser._id), 1, saveUser);
+            });
+        }
+    }
 }

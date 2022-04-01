@@ -67,32 +67,23 @@ export class RestDataSource
     return this.http.get<Tournament[]>(this.baseUrl + 'tournament/list');
   }
 
-  addTournaments(tour: Tournament): Observable<Tournament>
+  addTournaments(tournament: Tournament): Observable<Tournament>
   {
     this.loadToken();
-    return this.http.post<Tournament>(this.baseUrl + '', tour, this.httpOptions);
+    return this.http.post<Tournament>(this.baseUrl + 'tournament/add', tournament, this.httpOptions);
   }
 
-  addUser(user: User): Observable<User>{
-    return this.http.post<User>(this.baseUrl1 + '', user, this.httpOptions);
-  }
   deleteTournament(id: Object): Observable<Tournament>
   {
     this.loadToken();
     console.log(id);
-    return this.http.delete(this.baseUrl+'/'+id);
+    return this.http.get<Tournament>(this.baseUrl+'tournament/delete/'+id);
   }
 
-  modifyTour(tour: Tournament,id: Object): Observable<Tournament>
+  editTournament(tournament: Tournament): Observable<Tournament>
   {
     this.loadToken();
-   return this.http.put<Tournament>(this.baseUrl+'/'+id, tour, this.httpOptions);
-
-  }
-  updateTournament(tour: Tournament): Observable<Tournament>
-  {
-    this.loadToken();
-    return this.http.post<Tournament>(`${this.baseUrl}edit/${tour._id}`, tour, this.httpOptions);
+    return this.http.post<Tournament>(`${this.baseUrl}tournament/edit/${tournament._id}`, tournament, this.httpOptions);
   }
 
   authenticate(user: User, userlist:any): Observable<any>
@@ -106,6 +97,10 @@ export class RestDataSource
   getUsers()
   {
     return this.http.get<any>(this.baseUrl1);
+  }
+
+  addUser(user: User): Observable<User>{
+    return this.http.post<User>(this.baseUrl1 + '', user, this.httpOptions);
   }
 
   storeUserData(token: any, user: User): void
