@@ -14,116 +14,114 @@ const PROTOCOL = 'https';
 const PORT = 3500;
 
 @Injectable()
-export class RestDataSource
-{
+export class RestDataSource {
   user: User | null;
   baseUrl: string;
   authToken!: string;
 
   private httpOptions =
-  {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-    })
-  };
+    {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+      })
+    };
 
   constructor(private http: HttpClient,
-              private jwtService: JwtHelperService)
-  {
+    private jwtService: JwtHelperService) {
     this.user = new User();
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
     //this.baseUrl = `http://localhost:3000/tournament/`;
-     this.baseUrl = `http://localhost:3000/api/`;;
+    this.baseUrl = `http://localhost:3000/api/`;;
   }
 
-  getTopics(): Observable<Topic[]>
-  {
+  getTopics(): Observable<Topic[]> {
     return this.http.get<Topic[]>(this.baseUrl + 'topic/list');
   }
 
-  addTopic(topic: Topic): Observable<Topic>
-  {
+  addTopic(topic: Topic): Observable<Topic> {
     console.log(JSON.stringify(topic));
     return this.http.post<Topic>(this.baseUrl + 'topic/add', topic);
   }
 
-  getComments(): Observable<Comment[]>
-  {
+  getComments(): Observable<Comment[]> {
     return this.http.get<Comment[]>(this.baseUrl + 'comment/list');
   }
 
-  addComment(comment: Comment): Observable<Comment>
-  {
+  addComment(comment: Comment): Observable<Comment> {
     console.log(JSON.stringify(comment));
     return this.http.post<Comment>(this.baseUrl + 'comment/add', comment);
   }
 
-  getTournaments(): Observable<Tournament[]>
-  {
+  getTournaments(): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(this.baseUrl + 'tournament/list');
   }
 
-  addTournaments(tournament: Tournament): Observable<Tournament>
-  {
+  addTournaments(tournament: Tournament): Observable<Tournament> {
     this.loadToken();
     return this.http.post<Tournament>(this.baseUrl + 'tournament/add', tournament, this.httpOptions);
   }
 
-  deleteTournament(id: Object): Observable<Tournament>
-  {
+  deleteTournament(id: Object): Observable<Tournament> {
     this.loadToken();
     console.log(id);
-    return this.http.get<Tournament>(this.baseUrl+'tournament/delete/'+id);
+    return this.http.get<Tournament>(this.baseUrl + 'tournament/delete/' + id, this.httpOptions);
   }
 
-  editTournament(tournament: Tournament): Observable<Tournament>
-  {
+  editTournament(tournament: Tournament): Observable<Tournament> {
     this.loadToken();
     return this.http.post<Tournament>(`${this.baseUrl}tournament/edit/${tournament._id}`, tournament, this.httpOptions);
   }
 
-  authenticate(user: User, userlist:any): Observable<any>
-  {
-    let body:any = {};
+  authenticate(user: User, userlist: any): Observable<any> {
+    let body: any = {};
     body['body'] = user;
     body['userList'] = userlist
     return this.http.post<any>('http://localhost:3000/' + 'login', body, this.httpOptions);
   }
 
-  getUsers()
-  {
-    return this.http.get<any>(this.baseUrl);
+  login(pair: any): Observable<any> {
+    console.log(this.baseUrl + 'login');
+    return this.http.post<any>(this.baseUrl + 'login', pair);
   }
 
-  addUser(user: User): Observable<User>{
-    return this.http.post<User>(this.baseUrl + '', user, this.httpOptions);
+  registerUser(registeredUser: User): Observable<any> {
+    this.loadToken();
+    return this.http.post<User>(this.baseUrl + 'register', registeredUser, this.httpOptions);
   }
 
-  storeUserData(token: any, user: User): void
-  {
+  modifyUser(modifiedUser: User): Observable<any>{
+    this.loadToken();
+    return this.http.post<User>(this.baseUrl + 'editUser', modifiedUser, this.httpOptions); //TODO, server side not yet implemented
+  }
+
+  storeUserData(token: any, user: User): void {
     localStorage.setItem('id_token', 'Bearer ' + token);
     localStorage.setItem('user', JSON.stringify(user));
     this.authToken = token;
     this.user = user;
   }
 
-  logout(): Observable<any>
-  {
+  logout(): Observable<any> {
     this.authToken = null || '';
     this.user = null;
     localStorage.clear();
     return this.http.get<any>('http://localhost:3000/' + 'logout', this.httpOptions);
   }
 
-  loggedIn(): boolean
-  {
+  loggedIn(): boolean {
     return !this.jwtService.isTokenExpired(this.authToken);
   }
 
-  private loadToken(): void
-  {
+  getDisplayName(): string {
+    if (this.user != null)
+      return this.user.displayName;
+    else
+      return '';
+  }
+
+  private loadToken(): void {
     const token = localStorage.getItem('id_token');
     this.authToken = token || '';
     this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.authToken);
