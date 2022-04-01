@@ -13,6 +13,7 @@
     "@types/express-session": "^1.17.4",
     "@types/passport": "^1.0.7",
     "alert": "^5.0.10",
+    "body-parser": "^1.19.2",
     "bootstrap": "^4.6.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
@@ -27,6 +28,7 @@
     "morgan": "~1.9.1",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.1.0",
     "popper.js": "^1.16.1"

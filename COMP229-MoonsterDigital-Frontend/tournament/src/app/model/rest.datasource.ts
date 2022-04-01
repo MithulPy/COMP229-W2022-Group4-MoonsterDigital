@@ -18,7 +18,6 @@ export class RestDataSource
 {
   user: User | null;
   baseUrl: string;
-  baseUrl1: string;
   authToken!: string;
 
   private httpOptions =
@@ -34,7 +33,6 @@ export class RestDataSource
               private jwtService: JwtHelperService)
   {
     this.user = new User();
-    this.baseUrl1 = `http://localhost:3000/user/`;;
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
     //this.baseUrl = `http://localhost:3000/tournament/`;
      this.baseUrl = `http://localhost:3000/api/`;;
@@ -96,11 +94,11 @@ export class RestDataSource
 
   getUsers()
   {
-    return this.http.get<any>(this.baseUrl1);
+    return this.http.get<any>(this.baseUrl);
   }
 
   addUser(user: User): Observable<User>{
-    return this.http.post<User>(this.baseUrl1 + '', user, this.httpOptions);
+    return this.http.post<User>(this.baseUrl + '', user, this.httpOptions);
   }
 
   storeUserData(token: any, user: User): void

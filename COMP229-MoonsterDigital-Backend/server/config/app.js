@@ -12,13 +12,17 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
-var flash = require('connect-flash');
+let flash = require('connect-flash');
 let session = require('express-session');
 let cors = require('cors');
 
 
 // modules for authentication
 let passport = require('passport');
+
+let passportJWT = require('passport-jwt');
+let JWTStrategy = passportJWT.Strategy;
+let ExtractJWT = passportJWT.ExtractJwt;
 
 let passportLocal = require('passport-local');
 let localStrategy = passportLocal.Strategy;
@@ -37,10 +41,11 @@ mongoDB.once('open', ()=>{
 });
 
 let indexRouter = require('../routes/index');
+let usersRouter = require('../routes/users');
+
 let tournamentRouter = require('../routes/tournament');
 let topicRouter = require('../routes/topic');
 let commentRouter = require('../routes/comment');
-let userRouter = require('../routes/user');
 
 
 let app = express();
@@ -90,18 +95,31 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+let jwtOptions = {};
+jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
+jwtOptions.secretOrKey = "SomeSecret";
+
+let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
+  User.findById(jwt_payload.id)
+    .then(user => {
+      return done(null, user);
+    })
+    .catch(err => {
+      return done(err, false);
+    });
+});
+passport.use(strategy);
+
 
 // routing
 app.use('/api', indexRouter);
+app.use('/api/users', usersRouter);
 app.use('/api/tournament', tournamentRouter);
 app.use('/api/topic', topicRouter);
 app.use('/api/comment', commentRouter);
-app.use('/api/register', userRouter);
-
-/*app.get('*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../public/index.html'));
-});*/
-
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
