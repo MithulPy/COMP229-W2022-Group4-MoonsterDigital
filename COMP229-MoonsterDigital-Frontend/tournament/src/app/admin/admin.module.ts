@@ -1,21 +1,31 @@
+/**
+ * @GroupName MoonsterDigital
+ * @FileName COMP229_W2022-Group4-MoonsterDigital
+ * @CourseCode COMP229
+ * @Date Apr 1st 2022
+ * @CourseName Web Application Development SEC005
+ */
+
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { ModelModule } from '../model/model.module';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AuthComponent } from './auth/auth.component';
+import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AuthGuard } from './auth/auth.guard';
+//import { AuthComponent } from './auth/auth.component';
 
-const routing = RouterModule.forChild([
-  { path: 'auth', component: AuthComponent },
-  { path: 'main', component: RegisterComponent },
-  { path: '**', redirectTo: 'auth' },
+const routes = RouterModule.forChild([
+  { path: 'login', component: LoginComponent, data: { title: 'Login' } },
+  { path: 'register', component: RegisterComponent, data: { title:'Register'} },
+  //{ path: '**', redirectTo: 'auth' },
 ]);
 
 @NgModule({
-  imports: [BrowserModule, ModelModule, FormsModule, ReactiveFormsModule, routing],
-  providers: [AuthGuard],
-  declarations: [AuthComponent, RegisterComponent]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, routes],
+  declarations: [
+    LoginComponent,
+    RegisterComponent
+  ],
+  //providers: [AuthGuard],
 })
 export class AdminModule {}
