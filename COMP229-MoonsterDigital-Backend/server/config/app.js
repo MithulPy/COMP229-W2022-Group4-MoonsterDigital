@@ -18,12 +18,10 @@ let cors = require('cors');
 
 
 // modules for authentication
-//let session = require('express-session');
-//let passport = require('passport');
+let passport = require('passport');
 
-//let passportLocal = require('passport-local');
-//let localStrategy = passportLocal.Strategy;
-//let flash = require('connect-flash');
+let passportLocal = require('passport-local');
+let localStrategy = passportLocal.Strategy;
 
 // database setup
 let mongoose = require('mongoose');
@@ -71,16 +69,7 @@ app.use(session({
 app.use(flash());
 
 
-/*
-//setup express session
-app.use(session({
-  secret: "SomeSecret",
-  saveUninitialized: false,
-  resave: false
-}));
 
-// initialize flash
-app.use(flash());
 
 // initialize passport
 app.use(passport.initialize());
@@ -98,7 +87,7 @@ passport.use(User.createStrategy());
 // serialize and deserialize the User info
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-*/
+
 
 // routing
 app.use('/api', indexRouter);

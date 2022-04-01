@@ -19,8 +19,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddEditCommentComponent } from './pages/add-edit-comment/add-edit-comment.component';
 import { ForumTopicsComponent } from './pages/forum-topics/forum-topics.component';
 import { AddEditTopicComponent } from './pages/add-edit-topic/add-edit-topic.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
 
 import { JwtModule, JwtHelperService, JwtInterceptor } from '@auth0/angular-jwt';
 import { AdminModule } from './admin/admin.module';
