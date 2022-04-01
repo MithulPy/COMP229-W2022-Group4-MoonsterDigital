@@ -1,3 +1,13 @@
+<!--
+ * @GroupName MoonsterDigital
+ * @FileName COMP229_W2022-Group4-MoonsterDigital
+ * @CourseCode COMP229
+ * @Date Apr 1st 2022
+ * @CourseName Web Application Development SEC005
+-->
+
+<!-- Register Page -->
+
 <body class="body-background">
     <main class="container">
         <div class="row">
@@ -40,11 +50,21 @@
 
                     <!-- Register Page Button -->
                     <div>
-                        <p>Need an account? <a href="/login">Login</a></p>
+                        <p>Need an account? <a href="/admin/login">Login</a></p>
+                    </div>
+
+                    <!-- Error Session-->
+                    <div class="bg-danger mt-2 p-2 text-center text-white" *ngIf='errorMessage != null'>
+                      {{ errorMessage }}
+                    </div>
+
+                    <!-- Success Session-->
+                    <div class="bg-primary mt-2 p-2 text-center text-white md-3" *ngIf='successMessage != null'>
+                      {{ successMessage }}
                     </div>
 
                     <!-- Register Button -->
-                    <button class="btn-orange btn" type="submit">
+                    <button class="btn-orange btn" type="submit" [disabled]="!userForm.valid">
                         <i class="fas fa-check"></i><b> Register</b>
                     </button>
 
