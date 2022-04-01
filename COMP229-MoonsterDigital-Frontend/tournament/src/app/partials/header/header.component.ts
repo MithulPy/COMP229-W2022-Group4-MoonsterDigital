@@ -9,32 +9,26 @@ import { User } from 'src/app/model/user.model';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  user!: User;
+  displayName!: string;
 
-  constructor(//private authService: AuthService,
-              private router: Router) { }
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
-  ngOnInit(): void
-  {
-    this.user = new User();
+  ngOnInit(): void {
+    
   }
 
   onLogoutClick(): void
   {
-    /*this.authService.logout().subscribe(data => {
+    this.authService.logout().subscribe(data => {
       this.router.navigate(['/login']);
-    });*/
+    });
   }
 
 
   isLoggedIn(): boolean
   {
-    /*const result = this.authService.authenticated;
-    if (result)
-    {
-      //this.user = JSON.parse(localStorage.getItem('user')); //TODO
-    }
-    return result;*/
-    return false;
+    this.displayName = this.authService.getDisplayName();
+    return this.authService.authenticated;
   }
 }
