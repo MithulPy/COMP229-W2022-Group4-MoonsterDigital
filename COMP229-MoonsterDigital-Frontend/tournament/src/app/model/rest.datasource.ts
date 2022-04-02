@@ -37,24 +37,29 @@ export class RestDataSource {
   }
 
   getTopics(): Observable<Topic[]> {
+    this.loadToken();
     return this.http.get<Topic[]>(this.baseUrl + 'topic/list');
   }
 
   addTopic(topic: Topic): Observable<Topic> {
-    console.log(JSON.stringify(topic));
+    //console.log(JSON.stringify(topic));
+    this.loadToken();
     return this.http.post<Topic>(this.baseUrl + 'topic/add', topic);
   }
 
   getComments(): Observable<Comment[]> {
+    this.loadToken();
     return this.http.get<Comment[]>(this.baseUrl + 'comment/list');
   }
 
   addComment(comment: Comment): Observable<Comment> {
-    console.log(JSON.stringify(comment));
+    //console.log(JSON.stringify(comment));
+    this.loadToken();
     return this.http.post<Comment>(this.baseUrl + 'comment/add', comment);
   }
 
   getTournaments(): Observable<Tournament[]> {
+    this.loadToken();
     return this.http.get<Tournament[]>(this.baseUrl + 'tournament/list');
   }
 
@@ -65,7 +70,7 @@ export class RestDataSource {
 
   deleteTournament(id: Object): Observable<Tournament> {
     this.loadToken();
-    console.log(id);
+    //console.log(id);
     return this.http.get<Tournament>(this.baseUrl + 'tournament/delete/' + id, this.httpOptions);
   }
 
@@ -82,7 +87,7 @@ export class RestDataSource {
   }
 
   login(pair: any): Observable<any> {
-    console.log(this.baseUrl + 'login');
+    //console.log(this.baseUrl + 'login');
     return this.http.post<any>(this.baseUrl + 'login', pair);
   }
 
@@ -91,7 +96,7 @@ export class RestDataSource {
     return this.http.post<User>(this.baseUrl + 'register', registeredUser, this.httpOptions);
   }
 
-  modifyUser(modifiedUser: User): Observable<any>{
+  modifyUser(modifiedUser: User): Observable<any> {
     this.loadToken();
     return this.http.post<User>(this.baseUrl + 'editUser', modifiedUser, this.httpOptions); //TODO, server side not yet implemented
   }
@@ -111,16 +116,22 @@ export class RestDataSource {
   }
 
   loggedIn(): boolean {
-    console.log(this.authToken);
-
+    // console.log(this.authToken);
+    this.loadToken();
     return !this.jwtService.isTokenExpired(this.authToken);
   }
 
   getDisplayName(): string {
+    this.loadUser();
+
     if (this.user != null)
       return this.user.displayName;
     else
-      return '';
+        return '';
+  }
+
+  private loadUser(): void {
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   private loadToken(): void {
