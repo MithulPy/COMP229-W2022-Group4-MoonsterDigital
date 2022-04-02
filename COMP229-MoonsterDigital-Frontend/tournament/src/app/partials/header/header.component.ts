@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/model/auth.service';
-import { User } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-header',
@@ -10,14 +9,11 @@ import { User } from 'src/app/model/user.model';
 })
 export class HeaderComponent implements OnInit {
   displayName!: string;
-  user: User|any;
-
 
   constructor(private authService: AuthService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.user = new User();
 
   }
 
@@ -28,15 +24,12 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-
   isLoggedIn(): boolean
-  {
-    this.displayName = this.authService.getDisplayName();
+  {    
     const result = this.authService.authenticated;
     if (result)
     {
-      this.user = JSON.parse(localStorage.getItem('displayName') || '{}');
-      console.log(this.user);
+      this.displayName = this.authService.getDisplayName();
     }
     return result;
   }
