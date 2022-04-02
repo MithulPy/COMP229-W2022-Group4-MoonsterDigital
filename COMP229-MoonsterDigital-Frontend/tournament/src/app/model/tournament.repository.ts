@@ -81,11 +81,15 @@ export class TournamentRepo {
             this.tournaments.splice(this.tournaments.findIndex(b => b._id === deletedTourID), 1);
         });
     }
-
     
     updateTournament(data: any, id: number) {
         this.tournaments.find(b => b._id === id)!.title = data.title;
         this.tournaments.find(b => b._id === id)!.players = data.players;
         this.tournaments.find(b => b._id === id)!.startDate = data.startDate;
+    }
+
+    get authenticated(): boolean
+    {
+      return this.dataSource.loggedIn();
     }
 }

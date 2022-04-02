@@ -30,4 +30,9 @@ export class TopicRepo {
             });
         }
     }
+
+    get authenticated(): boolean
+    {
+      return this.dataSource.loggedIn();
+    }
 }
