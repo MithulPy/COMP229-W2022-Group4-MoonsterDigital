@@ -10,12 +10,15 @@ import { User } from 'src/app/model/user.model';
 })
 export class HeaderComponent implements OnInit {
   displayName!: string;
+  user: User|any;
+
 
   constructor(private authService: AuthService,
     private router: Router) { }
 
   ngOnInit(): void {
-    
+    this.user = new User();
+
   }
 
   onLogoutClick(): void
@@ -29,6 +32,12 @@ export class HeaderComponent implements OnInit {
   isLoggedIn(): boolean
   {
     this.displayName = this.authService.getDisplayName();
-    return this.authService.authenticated;
+    const result = this.authService.authenticated;
+    if (result)
+    {
+      this.user = JSON.parse(localStorage.getItem('displayName') || '{}');
+      console.log(this.user);
+    }
+    return result;
   }
 }

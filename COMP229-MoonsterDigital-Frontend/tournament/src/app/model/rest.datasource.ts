@@ -111,6 +111,8 @@ export class RestDataSource {
   }
 
   loggedIn(): boolean {
+    console.log(this.authToken);
+
     return !this.jwtService.isTokenExpired(this.authToken);
   }
 

@@ -12,12 +12,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-//import { AuthComponent } from './auth/auth.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes = RouterModule.forChild([
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
   { path: 'register', component: RegisterComponent, data: { title:'Register'} },
-  //{ path: '**', redirectTo: 'auth' },
+  { path: '**', redirectTo: 'auth' },
 ]);
 
 @NgModule({
@@ -26,6 +26,6 @@ const routes = RouterModule.forChild([
     LoginComponent,
     RegisterComponent
   ],
-  //providers: [AuthGuard],
+  providers: [AuthGuard],
 })
 export class AdminModule {}

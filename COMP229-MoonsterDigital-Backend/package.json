@@ -38,5 +38,7 @@
   "author": "Moonster Digital",
   "keywords": [
     "Tournament"
-  ]
+  ],
+  "devDependencies": {},
+  "license": "ISC"
 }
