@@ -33,7 +33,7 @@ export class RestDataSource {
     this.user = new User();
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
     //this.baseUrl = `http://localhost:3000/tournament/`;
-    this.baseUrl = `https://comp229-w2022-moonsterdigital.herokuapp.com/`;;
+    this.baseUrl = `https://comp229-w2022-moonsterdigital.herokuapp.com/api`;;
   }
 
   getTopics(): Observable<Topic[]> {
