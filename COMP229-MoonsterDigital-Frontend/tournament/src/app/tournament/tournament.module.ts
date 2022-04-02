@@ -14,21 +14,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { TournamentListComponent } from './tournament-list/tournament-list.component';
 import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';
+import { AuthGuard } from '../admin/auth/auth.guard';
 
 const routes = RouterModule.forChild([
   {
     path: 'list', component: TournamentListComponent, data: { title: 'Tournaments' },
   },
   {
-    path: ':mode', component: TournamentEditorComponent,
+    path: ':mode', component: TournamentEditorComponent, canActivate: [AuthGuard]
   },
   {
-    path: ':mode/:id', component: TournamentEditorComponent,
+    path: ':mode/:id', component: TournamentEditorComponent, canActivate: [AuthGuard]
   },
 ]);
 
 @NgModule({
   imports: [ModelModule, CommonModule, FormsModule, ReactiveFormsModule, routes],
+  providers: [AuthGuard],
   declarations: [TournamentListComponent, TournamentEditorComponent],
   exports: [TournamentListComponent]
 })
