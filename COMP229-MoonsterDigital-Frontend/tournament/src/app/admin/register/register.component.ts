@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
     this.authService.saveUser(this.userForm.value).subscribe(b => {
       if (b.success) {
         this.successMessage = b.msg;
-        //this.router.navigateByUrl('/admin/login');
+        this.router.navigateByUrl('/admin/login');
       }
       else {
         this.errorMessage = b.msg;
