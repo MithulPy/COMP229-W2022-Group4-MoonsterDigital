@@ -17,11 +17,12 @@ import { CommentRepo } from './model/comment.repository';
 
 import { AuthService } from './model/auth.service';
 import { TournamentRepo } from './model/tournament.repository';
+import { JwtModule, JwtHelperService, JwtInterceptor } from '@auth0/angular-jwt';
 
-/*export function jwtTokenGetter(): string
+export function jwtTokenGetter(): string|any
 {
-  return "12345";//localStorage.getItem('id_token');
-}*/
+  localStorage.getItem('id_token');
+}
 
 @NgModule({
   declarations: [
@@ -37,11 +38,11 @@ import { TournamentRepo } from './model/tournament.repository';
     ForumModule,
     TournamentModule,
 
-    /*JwtModule.forRoot({
+    JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter
       }
-    })*/
+    })
   ],
   providers: [TopicRepo, CommentRepo, TournamentRepo, AuthService],
   bootstrap: [AppComponent]

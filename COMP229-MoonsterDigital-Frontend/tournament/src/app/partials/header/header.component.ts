@@ -29,8 +29,20 @@ export class HeaderComponent implements OnInit {
     const result = this.authService.authenticated;
     if (result)
     {
-      this.displayName = this.authService.getDisplayName();
+      this.user = JSON.parse(localStorage.getItem('user') || '{}');
+
+      console.log(this.user);
     }
     return result;
   }
+/* 
+  isLoggedIn(): boolean
+  {
+    var loginCookie = localStorage.getItem('loginStatus')
+    if(loginCookie=="1"){
+      return true;
+
+    }
+    return false;
+  } */
 }
