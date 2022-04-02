@@ -73,7 +73,10 @@ export class TournamentEditorComponent implements OnInit {
   }
 
   getSplittedISODateString(date: Date): string {
-    return new Date(date).toISOString().split('T')[0];
+    if (date == null)
+      return '';
+    else
+      return new Date(date).toISOString().split('T')[0];
   }
 
   returnToTournamentList() {
