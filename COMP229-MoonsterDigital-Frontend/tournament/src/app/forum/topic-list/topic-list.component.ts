@@ -39,4 +39,9 @@ export class TopicListComponent implements OnInit {
   getSplittedISODateString(date: Date): string {
     return new Date(date).toISOString().split('T')[0];
   }
+
+  isLoggedIn(): boolean
+  {    
+    return this.repository.authenticated;
+  }
 }
