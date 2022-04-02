@@ -11,15 +11,17 @@
  var router = express.Router();
    
  let commentController = require('../controllers/comment');
- 
+ let jwt = require('jsonwebtoken');
+
+ let passport = require('passport');
   
  /** Show Forum Comments available  */
  router.get('/list', commentController.displayComments);
  
  /* Post Route for the Edit comment page - Update Operation */
- router.post('/edit/:id', commentController.processEditPage);
+ router.post('/edit/:id',passport.authenticate('jwt', {session: false}), commentController.processEditPage);
  
  /* Post Route for the ADD comment page - Update Operation */
- router.post('/add', commentController.processAddPage);
+ router.post('/add',passport.authenticate('jwt', {session: false}), commentController.processAddPage);
   
  module.exports = router;

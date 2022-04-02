@@ -11,7 +11,10 @@
  var router = express.Router();
   
  let tournamentController = require('../controllers/tournament');
- 
+ let jwt = require('jsonwebtoken');
+
+let passport = require('passport');
+
 
  
  /** Show Tournaments available  */
@@ -21,7 +24,7 @@
 router.get('/edit/:id', tournamentController.displayEditPage);
 
 /* Post Route for the Edit tournament page - Update Operation */
-router.post('/edit/:id', tournamentController.processEditPage);
+router.post('/edit/:id', passport.authenticate('jwt', {session: false}), tournamentController.processEditPage);
 
 /* Get Route for the Add tournament page - Update Operation */
 router.get('/add', tournamentController.displayAddPage);
@@ -30,7 +33,7 @@ router.get('/add', tournamentController.displayAddPage);
 router.post('/add', tournamentController.processAddPage);
 
 /* GET Route for the Delete tournament page - Delete Operation */
-router.get('/delete/:id', tournamentController.performDelete);
+router.get('/delete/:id', passport.authenticate('jwt', {session: false}), tournamentController.performDelete);
 
  
  module.exports = router;
