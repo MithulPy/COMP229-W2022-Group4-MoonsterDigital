@@ -29,9 +29,7 @@ export class HeaderComponent implements OnInit {
     const result = this.authService.authenticated;
     if (result)
     {
-      this.user = JSON.parse(localStorage.getItem('user') || '{}');
-
-      console.log(this.user);
+      this.displayName = this.authService.getDisplayName();
     }
     return result;
   }
