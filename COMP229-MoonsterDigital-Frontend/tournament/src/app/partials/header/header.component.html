@@ -39,7 +39,7 @@
                   <a class="nav-link" routerLink="/admin/logout"><i class="fas fa-sign-out-alt"></i>  Logout</a>
               </li> -->
               <li *ngIf='isLoggedIn()' class="nav-item">
-                <a (click)='onLogoutClick()' routerLink='/admin/logout' class="nav-link" href="/login">
+                <a (click)='onLogoutClick()' routerLink='/admin/logout' class="nav-link" >
                   <i class="fas fa-lg fa-sign-out-alt"></i> Logout </a>
               </li>
               <li *ngIf='!isLoggedIn()' class="nav-item" [routerLinkActive]="['active']">

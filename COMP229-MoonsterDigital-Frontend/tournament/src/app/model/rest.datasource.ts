@@ -99,6 +99,8 @@ export class RestDataSource {
   storeUserData(token: any, user: User): void {
     localStorage.setItem('id_token', 'Bearer ' + token);
     localStorage.setItem('user', JSON.stringify(user));
+   
+
     this.authToken = token;
     this.user = user;
   }
@@ -111,8 +113,6 @@ export class RestDataSource {
   }
 
   loggedIn(): boolean {
-    console.log(this.authToken);
-
     return !this.jwtService.isTokenExpired(this.authToken);
   }
 
