@@ -16,14 +16,14 @@
             <h3>{{ title }}</h3>
             <div class="d-flex justify-content-end align-items-center">
                 <a href="/tournament/add" class="btn btn-orange" role="button"><i class="fas fa-plus"></i> <b>Create
-                        Tournament</b></a>
+                    Tournament</b></a>
             </div>
         </div>
         <table style="position:relative; top:10px;" id="sortTable"
             class="table table-sortable table-striped table-light table-hover table-sm">
             <thead>
                 <!-- Header Row-->
-                <tr class="d-flex">
+                <tr>
                     <th class="text-center col-1">Owner</th>
                     <th class="text-center col-1">Title</th>
                     <th class="text-center col-2">Description</th>
@@ -33,13 +33,13 @@
                     <th class="text-center col-1">Start Date </th>
                     <th class="text-center col-1">End Date</th>
                     <th class="text-center col-1">Rounds</th>
-                    <th class="text-center col-1"></th>
-                    <th class="text-center col-1"></th>
+                    <th *ngIf='isLoggedIn()' class="text-center col-1"></th>
+                    <th *ngIf='isLoggedIn()' class="text-center col-1"></th>
                 </tr>
             </thead>
             <!-- Repeatable Template Row -->
             <tbody>
-                <tr class="d-flex" *ngFor='let tournament of tournaments'>
+                <tr *ngFor='let tournament of tournaments'>
                     <td class="text-center col-1">
                         {{ tournament.owner }}
                     </td>
@@ -68,12 +68,12 @@
                         {{ tournament.rounds }}
                     </td>
 
-                    <td class="text-center col-1">
+                    <td *ngIf='isLoggedIn()' class="text-center col-1">
                         <button class="btn btn-sm btn-primary m-1" (click)='editTournament(tournament._id!)'>
                             <i class="fas fa-pencil-alt"></i> Edit
                         </button>
                     </td>
-                    <td class="text-center col-1">
+                    <td *ngIf='isLoggedIn()' class="text-center col-1">
                         <button class="btn btn-sm btn-danger m-1" (click)='deleteTournament(tournament._id!)'>
                             <i class="fas fa-trash-alt"></i> Delete
                         </button>
