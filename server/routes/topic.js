@@ -22,6 +22,6 @@ router.get('/list', topicController.displayTopics);
 router.post('/edit/:id',passport.authenticate('jwt', {session: false}), topicController.processEditPage);
 
 /* Post Route for the ADD topic page - Update Operation */
-router.post('/add',passport.authenticate('jwt', {session: false}), topicController.processAddPage);
+router.post('/add', topicController.processAddPage);
  
 module.exports = router;
