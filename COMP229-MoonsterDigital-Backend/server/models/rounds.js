@@ -36,7 +36,9 @@ const RoundsModel = mongoose.Schema({
     Final: {
         team1: [PlayerModel],
         team2: [PlayerModel]
-    }
+    },
+    Winner: [PlayerModel]
+
 
 },
     {
