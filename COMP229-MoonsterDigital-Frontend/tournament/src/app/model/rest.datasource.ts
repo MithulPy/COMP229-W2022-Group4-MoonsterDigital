@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tournament } from './tournament.model';
+import { Player } from './player.model';
 import { Topic } from './topic.model';
 import { Comment } from './comment.model';
 import { map } from 'rxjs/operators';
-
 import { JwtHelperService } from '@auth0/angular-jwt';
-
 import { User } from './user.model';
+import { BulkWritePlayers } from './bulkwriteplayers.model';
 
 const PROTOCOL = 'https';
 const PORT = 3500;
@@ -78,6 +78,41 @@ export class RestDataSource {
     this.loadToken();
     return this.http.post<Tournament>(`${this.baseUrl}tournament/edit/${tournament._id}`, tournament, this.httpOptions);
   }
+
+  //-------->//check Yuk code////
+  getPlayers(): Observable<Player[]> {
+    this.loadToken();
+    return this.http.get<Player[]>(this.baseUrl + 'tournament/list/rounds');
+  }
+
+  addPlayer(players: Player): Observable<Player> {
+    this.loadToken();
+    return this.http.post<Player>(this.baseUrl + 'tournament/list/register', players, this.httpOptions);
+  }
+
+  deletePlayer(id: Object): Observable<Player> {
+    this.loadToken();
+    //console.log(id);
+    return this.http.get<Player>(this.baseUrl + 'tournament/list/delete/' + id, this.httpOptions);
+  }
+
+  editPlayer(players: Player): Observable<Player> {
+    this.loadToken();
+    return this.http.post<Player>(`${this.baseUrl}tournament/list/register/${players._id}`, players, this.httpOptions);
+  }
+  //-------->Finish here/////
+
+  //Yuki code
+  getRegisteredPlayers(): Observable<Player[]> {
+    this.loadToken();
+    return this.http.get<Player[]>(this.baseUrl + 'player/list');
+  }
+  bulkWriteRegisteredPlayers(bulkWritePlayers: BulkWritePlayers): Observable<any>{
+      this.loadToken();
+      return this.http.post<Tournament>(`${this.baseUrl}player/bulk-write`, bulkWritePlayers, this.httpOptions);
+  }
+  //-------->Finish here/////
+
 
   authenticate(user: User, userlist: any): Observable<any> {
     let body: any = {};

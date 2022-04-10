@@ -36,6 +36,10 @@ export class TournamentListComponent implements OnInit {
   {
     this.router.navigateByUrl('/tournament/edit/' + id);
   }
+  registerPlayers(id: number) : void
+  {
+    this.router.navigateByUrl('/tournament/registerplayers' + id);
+  }
 
   deleteTournament(id: number): void
   {

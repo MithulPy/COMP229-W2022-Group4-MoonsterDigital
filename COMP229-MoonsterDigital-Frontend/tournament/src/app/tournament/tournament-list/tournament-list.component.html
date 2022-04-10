@@ -55,6 +55,7 @@
                     <td class="text-center col-1">
                         {{ tournament.isCompleted }}
                     </td>
+                    
                     <td class="text-center col-1">
                         {{ tournament.players }}
                     </td>
@@ -74,10 +75,16 @@
                         </button>
                     </td>
                     <td *ngIf='isLoggedIn()' class="text-center col-1">
+                        <button class="btn btn-sm btn-danger m-1" (click)='registerPlayers(tournament._id!)'>
+                            <i class="fas fa-trash-alt"></i> Register Players
+                        </button>
+                    </td>
+                    <td *ngIf='isLoggedIn()' class="text-center col-1">
                         <button class="btn btn-sm btn-danger m-1" (click)='deleteTournament(tournament._id!)'>
                             <i class="fas fa-trash-alt"></i> Delete
                         </button>
                     </td>
+                    
                 </tr>
             </tbody>
         </table>
