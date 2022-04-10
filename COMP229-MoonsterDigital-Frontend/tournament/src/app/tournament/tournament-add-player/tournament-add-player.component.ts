@@ -28,18 +28,7 @@ export class TournamentAddPlayerComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private repository: PlayerRepo,
     private router: Router,
-    private activeRoute: ActivatedRoute) {
-
-    this.tournamentId = activeRoute.snapshot.params["id"];
-    this.createPlayeRegistrationForm();
-
-    let cloneObj = Object.assign(this.bulkWritePlayers, repository.getBulkWritePlayerByTournamentId(activeRoute.snapshot.params['id']));
-
-    if (cloneObj != null && cloneObj.tournamentId != undefined) {
-      //console.log(cloneObj);
-      this.playerForm.patchValue(cloneObj);
-    }
-  }
+    private activeRoute: ActivatedRoute) { }
 
   createPlayeRegistrationForm() {
     this.playerForm = this.formBuilder.group({
@@ -58,6 +47,15 @@ export class TournamentAddPlayerComponent implements OnInit {
   ngOnInit(): void {
     this.title = this.activeRoute.snapshot.data['title'];
     this.repository.refresh();
+    this.tournamentId = this.activeRoute.snapshot.params["id"];
+    this.createPlayeRegistrationForm();
+
+    let cloneObj = Object.assign(this.bulkWritePlayers, this.repository.getBulkWritePlayerByTournamentId(this.activeRoute.snapshot.params['id']));
+
+    if (cloneObj != null && cloneObj.tournamentId != undefined) {
+      //console.log(cloneObj);
+      this.playerForm.patchValue(cloneObj);
+    }
   }
 
   onSubmit() {
