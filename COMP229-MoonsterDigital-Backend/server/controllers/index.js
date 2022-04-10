@@ -23,6 +23,10 @@ let User = userModel.User; // alias
 module.exports.displayHomePage = (req, res, next) => {
     //res.render('index', { title: 'Home', displayName: /*req.user ? req.user.displayName :*/ ''});
 
+    // Testing---------------------------------------
+    console.log("Entered Home page");
+    //End testing-----------------------------------
+
     // only display the active tournaments
     let query = Tournament.find({ "isActive": true });   //filtering with mongoose method
     query.exec((err, tournamentList) => {               //calling exect method to be able to execute an arrow method using the sorted list
@@ -159,6 +163,12 @@ module.exports.processRegisterPage = (req, res, next) => {
 };
 
 module.exports.performLogout = (req, res, next) => {
+    req.logout();
+    //res.redirect('/');
+    res.json({ success: true, msg: 'User Successfully Logged out!' });
+};
+
+module.exports.testRounds = (req, res, next) => {
     req.logout();
     //res.redirect('/');
     res.json({ success: true, msg: 'User Successfully Logged out!' });
