@@ -15,8 +15,8 @@ const PORT = 3500;
 
 @Injectable()
 export class RestDataSource {
-  user: User | null;
   baseUrl: string;
+  user: User | null;
   authToken!: string;
 
   private httpOptions =
@@ -30,10 +30,10 @@ export class RestDataSource {
 
   constructor(private http: HttpClient,
     private jwtService: JwtHelperService) {
-    this.user = new User();
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
     //this.baseUrl = `http://localhost:3000/tournament/`;
-    this.baseUrl = `http://localhost:3000/api/`;;
+    this.baseUrl = `http://localhost:3000/api/`;
+    this.user = new User();
   }
 
   getTopics(): Observable<Topic[]> {
@@ -79,28 +79,6 @@ export class RestDataSource {
     return this.http.post<Tournament>(`${this.baseUrl}tournament/edit/${tournament._id}`, tournament, this.httpOptions);
   }
 
-  //-------->//check Yuk code////
-  getPlayers(): Observable<Player[]> {
-    this.loadToken();
-    return this.http.get<Player[]>(this.baseUrl + 'tournament/list/rounds');
-  }
-
-  addPlayer(players: Player): Observable<Player> {
-    this.loadToken();
-    return this.http.post<Player>(this.baseUrl + 'tournament/list/register', players, this.httpOptions);
-  }
-
-  deletePlayer(id: Object): Observable<Player> {
-    this.loadToken();
-    //console.log(id);
-    return this.http.get<Player>(this.baseUrl + 'tournament/list/delete/' + id, this.httpOptions);
-  }
-
-  editPlayer(players: Player): Observable<Player> {
-    this.loadToken();
-    return this.http.post<Player>(`${this.baseUrl}tournament/list/register/${players._id}`, players, this.httpOptions);
-  }
-
   getRegisteredPlayers(): Observable<Player[]> {
     this.loadToken();
     return this.http.get<Player[]>(this.baseUrl + 'player/list');
@@ -140,11 +118,20 @@ export class RestDataSource {
 
   storeUserData(token: any, user: User): void {
     localStorage.setItem('id_token', 'Bearer ' + token);
-    localStorage.setItem('user', JSON.stringify(user));
-   
-
     this.authToken = token;
+
+    localStorage.setItem('user', JSON.stringify(user));
     this.user = user;
+  }
+
+  private loadUser(): void {
+    this.user = JSON.parse(localStorage.getItem('user')!);
+  }
+
+  private loadToken(): void {
+    const token = localStorage.getItem('id_token');
+    this.authToken = token || '';
+    this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.authToken);
   }
 
   logout(): Observable<any> {
@@ -167,16 +154,6 @@ export class RestDataSource {
       return this.user.displayName;
     else
         return '';
-  }
-
-  private loadUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user')!);
-  }
-
-  private loadToken(): void {
-    const token = localStorage.getItem('id_token');
-    this.authToken = token || '';
-    this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.authToken);
   }
 }
 
