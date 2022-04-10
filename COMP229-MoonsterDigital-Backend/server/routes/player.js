@@ -18,13 +18,16 @@
  /** Show all registered players  */
  router.get('/list', playerController.displayPlayers);
 
- /* Post Route for the getting only the display names in an array for a particular tournament id - Aggregate Operation */
+ /* Get Route for the getting only the display names in an array for a particular tournament id - Aggregate Operation */
  router.get('/display-names/:id', /*passport.authenticate('jwt', {session: false}),*/ playerController.getDisplayNames);
 
  /* Post Route for the register player page - Upsert Operation */
  router.post('/upsert', passport.authenticate('jwt', {session: false}), playerController.processUpsertPage);
 
+ /* Get Route for the register player page - Bulk Upsert Operation */
+ router.get('/bulk-upsert', /*passport.authenticate('jwt', {session: false}),*/ playerController.displayBulkUpsertPage);
+
  /* Post Route for the register player page - Bulk Upsert Operation */
- router.post('/bulk-upsert', /*passport.authenticate('jwt', {session: false}),*/ playerController.processBulkUpsertPage);
+ router.post('/bulk-upsert', passport.authenticate('jwt', {session: false}), playerController.processBulkUpsertPage);
 
  module.exports = router;

@@ -13,6 +13,7 @@ const player = require('../models/player');
 
 //importing model
 let Player = require('../models/player');
+let Tournament = require('../models/tournament');
 
 // displaying list method
 module.exports.displayPlayers = (req, res, next) => {
@@ -34,7 +35,7 @@ module.exports.getDisplayNames = (req, res, next) => {
         [
             { $sort: { "number": 1 } },
             { $match: { "tournamentId": requestedTournamentId } },
-            { $group: { "_id":"$tournamentId", "players":{ $push:"$displayName" }}},         
+            { $group: { "_id": "$tournamentId", "players": { $push: "$displayName" } } },
         ]
     );
 
@@ -84,6 +85,50 @@ module.exports.processUpsertPage = async (req, res, next) => {
         console.log(e);
         res.send(e);
     }
+}
+
+// bulk write - upsert
+module.exports.displayBulkUpsertPage = async (req, res, next) => {
+    let query = Tournament
+        .aggregate([
+            {
+                "$project": {
+                    "tournamentId": {
+                        "$toString": "$_id"
+                    }
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "players",
+                    "localField": "tournamentId",
+                    "foreignField": "tournamentId",
+                    "as": "registeredPlayers"
+                }
+            },
+            {
+                "$project": {
+                    "tournamentId": 1,
+                    "player1": { "$arrayElemAt": ["$registeredPlayers.displayName", 0]},
+                    "player2": { "$arrayElemAt": ["$registeredPlayers.displayName", 1]},
+                    "player3": { "$arrayElemAt": ["$registeredPlayers.displayName", 2]},
+                    "player4": { "$arrayElemAt": ["$registeredPlayers.displayName", 3]},
+                    "player5": { "$arrayElemAt": ["$registeredPlayers.displayName", 4]},
+                    "player6": { "$arrayElemAt": ["$registeredPlayers.displayName", 5]},
+                    "player7": { "$arrayElemAt": ["$registeredPlayers.displayName", 6]},
+                    "player8": { "$arrayElemAt": ["$registeredPlayers.displayName", 7]}
+                }
+            },
+        ]);
+
+    query.exec((err, tournamentList) => {
+        if (err) {
+            return console.error(err);
+        }
+        else {
+            res.json(tournamentList);
+        }
+    });
 }
 
 // bulk write - upsert
