@@ -10,7 +10,11 @@ export class TournamentRepo {
     private player: String[] = [];
 
     constructor(private dataSource: RestDataSource) {
-        dataSource.getTournaments().subscribe(data => {
+        this.refresh();
+    }
+
+    refresh(): void{
+        this.dataSource.getTournaments().subscribe(data => {
             for (var i = 0; i < data.length; i++) {
                 data[i].players = data[i].players?.toString().split(',').join(', ');
             }

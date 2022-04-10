@@ -6,15 +6,13 @@
  * @CourseName Web Application Development SEC005
  */
 
- import { Component, OnInit } from '@angular/core';
- import { FormsModule, ReactiveFormsModule } from '@angular/forms';
- import { FormBuilder, FormGroup, Validators } from '@angular/forms';
- import { ActivatedRoute, Router } from '@angular/router';
- import { Tournament } from 'src/app/model/tournament.model';
- import { Player } from 'src/app/model/player.model';
- import { TournamentRepo } from 'src/app/model/tournament.repository';
- import { PlayerRepo } from 'src/app/model/player.repository';
- import { BulkWritePlayers } from 'src/app/model/bulkwriteplayers.model';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Tournament } from 'src/app/model/tournament.model';
+import { PlayerRepo } from 'src/app/model/player.repository';
+import { BulkWritePlayers } from 'src/app/model/bulkwriteplayers.model';
 
 @Component({
   selector: 'app-tournament-add-player',
@@ -24,42 +22,46 @@
 export class TournamentAddPlayerComponent implements OnInit {
   title!: string;
   tournamentId!: number;
-  editing = false;
-  player: Player = new Player();
+  bulkWritePlayers: BulkWritePlayers = new BulkWritePlayers();
   playerForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
     private repository: PlayerRepo,
-  
     private router: Router,
-    activeRoute: ActivatedRoute) {
-    this.createPlayerFormForm();
-    this.tournamentId = activeRoute.snapshot.params['tournamentId'];
+    private activeRoute: ActivatedRoute) {
 
+    this.tournamentId = activeRoute.snapshot.params["id"];
+    this.createPlayeRegistrationForm();
+
+    let cloneObj = Object.assign(this.bulkWritePlayers, repository.getBulkWritePlayerByTournamentId(activeRoute.snapshot.params['id']));
+
+    if (cloneObj != null && cloneObj.tournamentId != undefined) {
+      //console.log(cloneObj);
+      this.playerForm.patchValue(cloneObj);
+    }
   }
 
-  createPlayerFormForm() {    
-      this.playerForm = this.formBuilder.group({
-        tournamentId : [this.tournamentId],
-        player1:[''],
-        player2:[''],
-        player3:[''],
-        player4:[''],
-        player5:[''],
-        player6:[''],
-        player7:[''],
-        player8:[''],
-      });
+  createPlayeRegistrationForm() {
+    this.playerForm = this.formBuilder.group({
+      tournamentId: [this.tournamentId],
+      player1: [''],
+      player2: [''],
+      player3: [''],
+      player4: [''],
+      player5: [''],
+      player6: [''],
+      player7: [''],
+      player8: [''],
+    });
   }
 
   ngOnInit(): void {
-    this.title = 'Player Registration';
+    this.title = this.activeRoute.snapshot.data['title'];
+    this.repository.refresh();
   }
 
   onSubmit() {
-
     console.log(this.playerForm.value);
-
     this.repository.bulkWritePlayer(this.playerForm.value);
     this.router.navigateByUrl('/tournament/list');
   }

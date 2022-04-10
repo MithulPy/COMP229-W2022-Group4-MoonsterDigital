@@ -24,9 +24,8 @@ const routes = RouterModule.forChild([
   {
     path: ':mode', component: TournamentEditorComponent, canActivate: [AuthGuard]
   },
-
   {
-    path: 'registerplayers/:id', component: TournamentAddPlayerComponent, canActivate: [AuthGuard]
+    path: 'player/:id', component: TournamentAddPlayerComponent, canActivate: [AuthGuard]
   },
   {
     path: ':mode/:id', component: TournamentEditorComponent, canActivate: [AuthGuard]

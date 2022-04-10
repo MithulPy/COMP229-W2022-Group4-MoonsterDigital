@@ -19,16 +19,17 @@ import { TopicRepo } from 'src/app/model/topic.repository';
 export class TopicListComponent implements OnInit {
   title!: string;
 
-  constructor(private repository: TopicRepo,
+  constructor(private topicRepo: TopicRepo,
     private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
     this.title = this.route.snapshot.data['title'];
+    this.topicRepo.refresh();
   }
 
   get topics(): Topic[] {
-    return this.repository.getTopics();
+    return this.topicRepo.getTopics();
   }
 
   viewComment(id: number): void
@@ -42,6 +43,6 @@ export class TopicListComponent implements OnInit {
 
   isLoggedIn(): boolean
   {    
-    return this.repository.authenticated;
+    return this.topicRepo.authenticated;
   }
 }

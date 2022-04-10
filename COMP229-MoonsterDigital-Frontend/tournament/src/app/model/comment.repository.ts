@@ -9,7 +9,11 @@ export class CommentRepo {
     private comments: Comment[] = [];
 
     constructor(private dataSource: RestDataSource) {
-        dataSource.getComments().subscribe(data => {
+        this.refresh();
+    }
+
+    refresh(): void{
+        this.dataSource.getComments().subscribe(data => {
             this.comments = data;
         });
     }

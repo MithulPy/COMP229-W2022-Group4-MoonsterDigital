@@ -9,7 +9,11 @@ export class TopicRepo {
     private topics: Topic[] = [];
 
     constructor(private dataSource: RestDataSource) {
-        dataSource.getTopics().subscribe(data => {
+        this.refresh();
+    }
+
+    refresh(): void{
+        this.dataSource.getTopics().subscribe(data => {
             this.topics = data;
         });
     }

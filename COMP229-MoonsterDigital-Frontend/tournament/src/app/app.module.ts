@@ -18,6 +18,7 @@ import { CommentRepo } from './model/comment.repository';
 import { AuthService } from './model/auth.service';
 import { TournamentRepo } from './model/tournament.repository';
 import { JwtModule, JwtHelperService, JwtInterceptor } from '@auth0/angular-jwt';
+import { PlayerRepo } from './model/player.repository';
 
 export function jwtTokenGetter(): string|any
 {
@@ -44,7 +45,7 @@ export function jwtTokenGetter(): string|any
       }
     })
   ],
-  providers: [TopicRepo, CommentRepo, TournamentRepo, AuthService],
+  providers: [TopicRepo, CommentRepo, TournamentRepo, PlayerRepo, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

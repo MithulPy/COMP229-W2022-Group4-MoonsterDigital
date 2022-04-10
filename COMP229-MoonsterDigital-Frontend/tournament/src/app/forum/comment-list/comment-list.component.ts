@@ -31,6 +31,7 @@ export class CommentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.title = this.route.snapshot.data['title'];
+    this.commentRepo.refresh();
   }
 
   get comments(): Comment[] {

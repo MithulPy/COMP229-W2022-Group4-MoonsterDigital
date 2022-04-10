@@ -100,19 +100,21 @@ export class RestDataSource {
     this.loadToken();
     return this.http.post<Player>(`${this.baseUrl}tournament/list/register/${players._id}`, players, this.httpOptions);
   }
-  //-------->Finish here/////
 
-  //Yuki code
   getRegisteredPlayers(): Observable<Player[]> {
     this.loadToken();
     return this.http.get<Player[]>(this.baseUrl + 'player/list');
   }
+
+  getBulkWritePlayers(): Observable<BulkWritePlayers[]> {
+    this.loadToken();
+    return this.http.get<BulkWritePlayers[]>(this.baseUrl + 'player/bulk-upsert', this.httpOptions);
+  }
+
   bulkWriteRegisteredPlayers(bulkWritePlayers: BulkWritePlayers): Observable<any>{
       this.loadToken();
-      return this.http.post<Tournament>(`${this.baseUrl}player/bulk-write`, bulkWritePlayers, this.httpOptions);
+      return this.http.post<BulkWritePlayers>(`${this.baseUrl}player/bulk-upsert`, bulkWritePlayers, this.httpOptions);
   }
-  //-------->Finish here/////
-
 
   authenticate(user: User, userlist: any): Observable<any> {
     let body: any = {};

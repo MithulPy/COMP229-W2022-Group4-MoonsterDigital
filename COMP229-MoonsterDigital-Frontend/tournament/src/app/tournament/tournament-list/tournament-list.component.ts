@@ -25,6 +25,7 @@ export class TournamentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.title = this.route.snapshot.data['title'];
+    this.repository.refresh();
   }
 
   get tournaments(): Tournament[]
@@ -36,9 +37,10 @@ export class TournamentListComponent implements OnInit {
   {
     this.router.navigateByUrl('/tournament/edit/' + id);
   }
+
   registerPlayers(id: number) : void
   {
-    this.router.navigateByUrl('/tournament/registerplayers' + id);
+    this.router.navigateByUrl('/tournament/player/' + id);
   }
 
   deleteTournament(id: number): void
