@@ -47,6 +47,8 @@ let tournamentRouter = require('../routes/tournament');
 let topicRouter = require('../routes/topic');
 let commentRouter = require('../routes/comment');
 
+let roundsRouter = require('../routes/rounds');
+
 
 let app = express();
 
@@ -117,6 +119,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/tournament', tournamentRouter);
 app.use('/api/topic', topicRouter);
 app.use('/api/comment', commentRouter);
+app.use('/api/rounds', roundsRouter);
 /* app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../public/index.html'));
 }); */

@@ -15,9 +15,11 @@ let alert = require('alert');
 
 //importing model
 let Tournament = require('../models/tournament');
+let RoundsModel = require('../models/rounds');
 
 // displaying list method and ordering by name
 module.exports.displayTournaments = (req, res, next) => {
+
 
     let query =  Tournament.find().sort({"name":1} );   //filtering and ordering with mongoose method
    query.exec((err, tournamentList) => {               //calling exect method to be able to execute an arrow method using the sorted list
