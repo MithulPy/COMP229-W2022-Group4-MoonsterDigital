@@ -44,7 +44,7 @@ export class RestDataSource {
   addTopic(topic: Topic): Observable<Topic> {
     //console.log(JSON.stringify(topic));
     this.loadToken();
-    return this.http.post<Topic>(this.baseUrl + 'topic/add', topic);
+    return this.http.post<Topic>(this.baseUrl + 'topic/add', topic, this.httpOptions);
   }
 
   getComments(): Observable<Comment[]> {
@@ -55,7 +55,7 @@ export class RestDataSource {
   addComment(comment: Comment): Observable<Comment> {
     //console.log(JSON.stringify(comment));
     this.loadToken();
-    return this.http.post<Comment>(this.baseUrl + 'comment/add', comment);
+    return this.http.post<Comment>(this.baseUrl + 'comment/add', comment, this.httpOptions);
   }
 
   getTournaments(): Observable<Tournament[]> {
