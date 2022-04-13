@@ -16,6 +16,7 @@ import { TournamentListComponent } from './tournament-list/tournament-list.compo
 import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';
 import { AuthGuard } from '../admin/auth/auth.guard';
 import { TournamentAddPlayerComponent } from './tournament-add-player/tournament-add-player.component';
+import { BracketComponent } from './bracket/bracket.component';
 
 const routes = RouterModule.forChild([
   {
@@ -35,7 +36,7 @@ const routes = RouterModule.forChild([
 @NgModule({
   imports: [ModelModule, CommonModule, FormsModule, ReactiveFormsModule, routes],
   providers: [AuthGuard],
-  declarations: [TournamentListComponent, TournamentEditorComponent, TournamentAddPlayerComponent],
+  declarations: [TournamentListComponent, TournamentEditorComponent, TournamentAddPlayerComponent, BracketComponent],
   exports: [TournamentListComponent]
 })
 export class TournamentModule {}

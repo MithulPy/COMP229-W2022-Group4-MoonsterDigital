@@ -3,9 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { HomeComponent } from './pages/home/home.component';
+import { BracketComponent } from './tournament/bracket/bracket.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, data: { title: 'Home' } },
+  { path: 'bracket', component: BracketComponent, data: { title: 'Bracket' } },
+
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
   { path: 'forum', loadChildren: () => import('./forum/forum.module').then(m => m.ForumModule)},
   { path: 'tournament', loadChildren: () => import('./tournament/tournament.module').then(m => m.TournamentModule)},
