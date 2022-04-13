@@ -28,21 +28,7 @@ export class TournamentEditorComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private repository: TournamentRepo,
     private router: Router,
-    activeRoute: ActivatedRoute) {
-    this.editing = activeRoute.snapshot.params['mode'] === 'edit';
-    this.createTournamentFormForm();
-
-    if (this.editing) {
-      
-      let cloneObj = Object.assign(this.tournament, repository.getTournament(activeRoute.snapshot.params['id']));
-      //let cloneObj = Object.assign({}, this.tournamentForm.getRawValue(), this.tournament);
-      this.tournamentForm.patchValue(cloneObj);
-
-      // manually set date
-      this.tournamentForm.get('startDate')!.setValue(this.getSplittedISODateString(this.tournament.startDate!));
-      this.tournamentForm.get('endDate')!.setValue(this.getSplittedISODateString(this.tournament.endDate!));
-    }
-  }
+    private activeRoute: ActivatedRoute) { }
 
   createTournamentFormForm() {    
       this.tournamentForm = this.formBuilder.group({
@@ -60,6 +46,21 @@ export class TournamentEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    this.editing = this.activeRoute.snapshot.params['mode'] === 'edit';
+    this.repository.refresh();
+    this.createTournamentFormForm();
+
+    if (this.editing) {
+      let cloneObj = Object.assign(this.tournament, this.repository.getTournament(this.activeRoute.snapshot.params['id']));
+      //let cloneObj = Object.assign({}, this.tournamentForm.getRawValue(), this.tournament);
+      this.tournamentForm.patchValue(cloneObj);
+
+      // manually set date
+      this.tournamentForm.get('startDate')!.setValue(this.getSplittedISODateString(this.tournament.startDate!));
+      this.tournamentForm.get('endDate')!.setValue(this.getSplittedISODateString(this.tournament.endDate!));
+    }
+
     this.title = this.editing ? 'Edit Tournament' : 'Add Tournament';
   }
 
@@ -73,7 +74,10 @@ export class TournamentEditorComponent implements OnInit {
   }
 
   getSplittedISODateString(date: Date): string {
-    return new Date(date).toISOString().split('T')[0];
+    if (date == null)
+      return '';
+    else
+      return new Date(date).toISOString().split('T')[0];
   }
 
   returnToTournamentList() {

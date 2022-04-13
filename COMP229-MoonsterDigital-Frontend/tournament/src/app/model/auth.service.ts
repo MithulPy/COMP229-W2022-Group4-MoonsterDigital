@@ -8,25 +8,36 @@ import { User } from './user.model';
 @Injectable()
 export class AuthService
 {
-  user: User;
+  //user: User;
 
   constructor(private datasource: RestDataSource)
   {
-    this.user = new User();
+    //this.user = new User();
   }
 
-  authenticate(user: User,userlist:any): Observable<any>
-  {
-    return this.datasource.authenticate(user, userlist);
-  }
-  getUsers()
-  {
-    return this.datasource.getUsers();
+  saveUser(savedUser: User): Observable<any> {
+    if (savedUser._id == null || savedUser._id === 0 || savedUser._id === undefined)
+    {
+      return this.datasource.registerUser(savedUser);
+    }
+    else
+    {
+      return this.datasource.modifyUser(savedUser);
+    }
   }
 
-  storeUserData(token: any, user: User): void
+  authenticate(authenticatedUser: User, userlist:any): Observable<any>
   {
-    this.datasource.storeUserData(token, user);
+    return this.datasource.authenticate(authenticatedUser, userlist);
+  }
+
+  login(pair: any): Observable<any> {
+    return this.datasource.login(pair);
+  }
+
+  storeUserData(token: any, storedUser: User): void
+  {
+    this.datasource.storeUserData(token, storedUser);
   }
 
   get authenticated(): boolean
@@ -39,4 +50,8 @@ export class AuthService
     return this.datasource.logout();
   }
 
+  getDisplayName(): string
+  {
+    return this.datasource.getDisplayName();
+  }
 }

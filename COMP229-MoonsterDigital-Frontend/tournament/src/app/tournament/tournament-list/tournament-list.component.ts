@@ -25,6 +25,7 @@ export class TournamentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.title = this.route.snapshot.data['title'];
+    this.repository.refresh();
   }
 
   get tournaments(): Tournament[]
@@ -37,6 +38,11 @@ export class TournamentListComponent implements OnInit {
     this.router.navigateByUrl('/tournament/edit/' + id);
   }
 
+  registerPlayers(id: number) : void
+  {
+    this.router.navigateByUrl('/tournament/player/' + id);
+  }
+
   deleteTournament(id: number): void
   {
     this.repository.deleteTournament(id);
@@ -45,5 +51,10 @@ export class TournamentListComponent implements OnInit {
 
   getSplittedISODateString(date: Date): string {
     return new Date(date).toISOString().split('T')[0];
+  }
+
+  isLoggedIn(): boolean
+  {    
+    return this.repository.authenticated;
   }
 }

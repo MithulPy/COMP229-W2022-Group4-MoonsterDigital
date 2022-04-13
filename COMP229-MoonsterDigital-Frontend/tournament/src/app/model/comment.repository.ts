@@ -9,28 +9,45 @@ export class CommentRepo {
     private comments: Comment[] = [];
 
     constructor(private dataSource: RestDataSource) {
-        dataSource.getComments().subscribe(data => {
+        this.refresh();
+    }
+
+    refresh(): void{
+        this.dataSource.getComments().subscribe(data => {
             this.comments = data;
+            this.storeCommentData(data);
         });
     }
 
+    storeCommentData(comments: Comment[]) {
+      localStorage.setItem('comments', JSON.stringify(comments));
+      this.comments = comments;
+    }
+  
+    loadComments(): void{
+      this.comments = JSON.parse(localStorage.getItem('comments')!);
+    }
+
     getComments() {
+        this.loadComments();
         return this.comments;
     }
 
     getCommentsByTopicId(topicId: any){
+        this.loadComments();
         return this.comments.filter(a => a.topicId === topicId);
     }
 
     getComment(id: any)
     {
+        this.loadComments();
         return this.comments.find(b => b._id == id)!;
     }
 
     saveComment(savedComment: Comment): void {
         if (savedComment._id === null || savedComment._id === 0 || savedComment._id === undefined) {
             this.dataSource.addComment(savedComment).subscribe(b => {
-                this.comments.push(savedComment);
+                this.refresh();//this.comments.push(savedComment);
             });
         }
     }

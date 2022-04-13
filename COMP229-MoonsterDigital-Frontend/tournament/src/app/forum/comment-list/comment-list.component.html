@@ -18,7 +18,7 @@
             
             <!--Button Session-->
             <div class="d-flex justify-content-end align-items-center">">
-                <button class="btn btn-orange me-2" (click)='addComment(topic._id!)'><i class="fas fa-plus"></i> <b>Add Comment</b></button>
+                <button *ngIf='isLoggedIn()' class="btn btn-orange me-2" (click)='addComment(topic._id!)'><i class="fas fa-plus"></i> <b>Add Comment</b></button>
                 <a href="/forum/topic" class="btn btn-light" role="button"><b>Back</b></a>
             </div>
 

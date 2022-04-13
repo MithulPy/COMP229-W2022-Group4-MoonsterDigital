@@ -31,6 +31,7 @@ export class CommentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.title = this.route.snapshot.data['title'];
+    this.commentRepo.refresh();
   }
 
   get comments(): Comment[] {
@@ -48,5 +49,10 @@ export class CommentListComponent implements OnInit {
 
   getSplittedISODateString(date: Date): string {
     return new Date(date).toISOString().split('T')[0];
+  }
+
+  isLoggedIn(): boolean
+  {    
+    return this.topicRepo.authenticated;
   }
 }

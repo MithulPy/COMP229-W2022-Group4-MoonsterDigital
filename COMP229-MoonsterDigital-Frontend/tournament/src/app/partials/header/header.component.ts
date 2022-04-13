@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/model/auth.service';
-import { User } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-header',
@@ -9,32 +8,39 @@ import { User } from 'src/app/model/user.model';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  user!: User;
+  displayName!: string;
 
-  constructor(//private authService: AuthService,
-              private router: Router) { }
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
-  ngOnInit(): void
-  {
-    this.user = new User();
+  ngOnInit(): void {
+
   }
 
   onLogoutClick(): void
   {
-    /*this.authService.logout().subscribe(data => {
+    this.authService.logout().subscribe(data => {
       this.router.navigate(['/login']);
-    });*/
+    });
   }
-
 
   isLoggedIn(): boolean
-  {
-    /*const result = this.authService.authenticated;
+  {    
+    const result = this.authService.authenticated;
     if (result)
     {
-      //this.user = JSON.parse(localStorage.getItem('user')); //TODO
+      this.displayName = this.authService.getDisplayName();
     }
-    return result;*/
-    return false;
+    return result;
   }
+/* 
+  isLoggedIn(): boolean
+  {
+    var loginCookie = localStorage.getItem('loginStatus')
+    if(loginCookie=="1"){
+      return true;
+
+    }
+    return false;
+  } */
 }

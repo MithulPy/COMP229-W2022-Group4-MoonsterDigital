@@ -9,25 +9,46 @@ export class TopicRepo {
     private topics: Topic[] = [];
 
     constructor(private dataSource: RestDataSource) {
-        dataSource.getTopics().subscribe(data => {
+        this.refresh();
+    }
+
+    refresh(): void{
+        this.dataSource.getTopics().subscribe(data => {
             this.topics = data;
+            this.storeTopicData(data);
         });
     }
 
+    storeTopicData(topics: Topic[]) {
+        localStorage.setItem('topics', JSON.stringify(topics));
+        this.topics = topics;
+    }
+
+    loadTopics(): void {
+        this.topics = JSON.parse(localStorage.getItem('topics')!);
+    }
+
     getTopics() {
+        this.loadTopics();
         return this.topics;
     }
 
     getTopic(id: any)
     {
+        this.loadTopics();
         return this.topics.find(b => b._id == id)!;
     }
 
     saveTopic(savedTopic: Topic): void {
         if (savedTopic._id === null || savedTopic._id === 0 || savedTopic._id === undefined) {
             this.dataSource.addTopic(savedTopic).subscribe(b => {
-                this.topics.push(savedTopic);
+                this.refresh();//this.topics.push(savedTopic);
             });
         }
+    }
+
+    get authenticated(): boolean
+    {
+      return this.dataSource.loggedIn();
     }
 }

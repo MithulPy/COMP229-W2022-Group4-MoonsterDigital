@@ -1,0 +1,43 @@
+<body class="body-background">
+
+    <div class="tournament-container">
+        <div class="tournament-headers">
+          <h3 style="color:black;background: orange;">Semi-Finals</h3>
+
+        </div>
+      
+        <div class="tournament-brackets">
+          <ul class="bracket bracket-1">
+            <li class="team-item">Player1</li>
+            <li class="team-item">Player2</li>
+            <li class="team-item">Player3</li>
+            <li class="team-item">Player4</li>
+
+          </ul>  
+          <ul class="bracket bracket-2">
+            <select class="form-select" style="width: 600px;" aria-label="Default select example">
+                <option style="text-align:center" selected>Open this select menu</option>
+                <option style="text-align:center" value="1">One</option>
+                <option style="text-align:center"  value="2">Two</option>
+                <option style="text-align:center"  value="3">Three</option>
+              </select>
+              <select class="form-select" style="width: 600px;" aria-label="Default select example">
+                <option style="text-align:center" selected>Open this select menu</option>
+                <option style="text-align:center" value="1">One</option>
+                <option style="text-align:center"  value="2">Two</option>
+                <option style="text-align:center"  value="3">Three</option>
+              </select>
+
+          </ul>  
+
+      
+     
+        </div>
+        <div class="d-flex flex-row justify-content-center">
+            <!--Cancel Button-->
+            <button type='reset' class="btn btn-secondary m-3" (click)='returnToTournamentList()'> Cancel</button>
+            <!--Submit Button-->
+            <button class="btn btn-primary m-3" type='submit'>Submit </button>
+        </div>
+      </div>
+      </body>

@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
-const APP_SECRET = 'Secret';
-const USERNAME = 'admin';
-const PASSWORD = '123456';
+const APP_SECRET = 'SomeSecret';
+const USERNAME = '123';
+const PASSWORD = '123';
 
 const mappings =
 {
-  get: ['/api/tournament'],
-  post: ['/api/tournament']
+  get: ['/api/users', '/users'],
+  post: ['/api/tournament','/api/tournament/add', '/tournament', 'api/topic', '/topic','api/comment', '/comment']
 }
 
 function requiresAuth(method, url)
@@ -22,6 +22,7 @@ module.exports = function (req, res, next)
     if (req.body && req.body.name == USERNAME && req.body.password == PASSWORD)
     {
       let token = jwt.sign({ data: USERNAME, expiresIn: "1h" }, APP_SECRET);
+      console.log(token);
       res.json({ success: true, token: token });
     }
     else
