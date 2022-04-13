@@ -38,6 +38,7 @@
                     <th *ngIf='isLoggedIn()' class="text-center col-1">Round 1</th>
                     <th *ngIf='isLoggedIn()' class="text-center col-1">Round 2</th>
                     <th *ngIf='isLoggedIn()' class="text-center col-1">Round 3</th>
+                    <th  class="text-center col-1">View Bracket</th>
                     <th *ngIf='isLoggedIn()' class="text-center col-1">Delete</th>
                 </tr>
             </thead>
@@ -95,6 +96,11 @@
                     <td *ngIf='isLoggedIn()' class="text-center col-1">
                         <button [routerLink]="['/bracket-final-edit']" class="btn btn-sm btn-dark m-1">
                             <i class="fas fa-pencil-alt"></i> Round 3
+                        </button>
+                    </td>
+                    <td class="text-center col-1">
+                        <button [routerLink]="['/bracket']" class="btn btn-sm btn-dark m-1">
+                            View Bracket
                         </button>
                     </td>
                     <td *ngIf='isLoggedIn()' class="text-center col-1">
