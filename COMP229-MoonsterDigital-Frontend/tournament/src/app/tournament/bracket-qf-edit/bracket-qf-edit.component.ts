@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-bracket-qf-edit',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BracketQfEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router ) { }
 
   ngOnInit(): void {
   }
 
+  returnToTournamentList() {
+    this.router.navigateByUrl('/tournament/list');
+  }
 }
