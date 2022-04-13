@@ -60,7 +60,10 @@ module.exports.testRounds = (req, res, next) => {
             "Final": {
                 "team1": [player1, player2,player3],
                 "team2": [player4, player5,player6],
-            }
+            },
+
+            "Winner":[player1,player2,player3]
+
         });
 
         console.log(addRounds);
@@ -68,8 +71,10 @@ module.exports.testRounds = (req, res, next) => {
         console.log(addRounds.QuerterFinal);
         console.log("Semi Final")
         console.log(addRounds.SemiFinal);
-        console.log(" Final")
+        console.log("Final")
         console.log(addRounds.Final);
+        console.log("Winner")
+        console.log(addRounds.Winner);
 
         RoundsModel.create(addRounds, (err, RoundsModel) => {
             if (err) {
