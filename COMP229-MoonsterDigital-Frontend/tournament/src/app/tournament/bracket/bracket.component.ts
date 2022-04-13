@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TournamentRepo } from 'src/app/model/tournament.repository';
 
 @Component({
   selector: 'app-bracket',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BracketComponent implements OnInit {
 
-  constructor() { }
+  constructor(private repository: TournamentRepo) { }
 
   ngOnInit(): void {
   }
-
+  isLoggedIn(): boolean
+  {    
+    return this.repository.authenticated;
+  }
 }
