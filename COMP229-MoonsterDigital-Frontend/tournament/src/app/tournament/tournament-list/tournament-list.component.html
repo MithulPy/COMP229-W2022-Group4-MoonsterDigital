@@ -83,17 +83,17 @@
                         </button>
                     </td>                    
                     <td *ngIf='isLoggedIn()' class="text-center col-1">
-                        <button class="btn btn-sm btn-dark m-1">
+                        <button [routerLink]="['/bracket-qf-edit']" class="btn btn-sm btn-dark m-1">
                             <i class="fas fa-pencil-alt"></i> Round 1
                         </button>
                     </td>
                     <td *ngIf='isLoggedIn()' class="text-center col-1">
-                        <button class="btn btn-sm btn-dark m-1">
+                        <button [routerLink]="['/bracket-sf-edit']" class="btn btn-sm btn-dark m-1">
                             <i class="fas fa-pencil-alt"></i> Round 2
                         </button>
                     </td>
                     <td *ngIf='isLoggedIn()' class="text-center col-1">
-                        <button class="btn btn-sm btn-dark m-1">
+                        <button [routerLink]="['/bracket-final-edit']" class="btn btn-sm btn-dark m-1">
                             <i class="fas fa-pencil-alt"></i> Round 3
                         </button>
                     </td>
