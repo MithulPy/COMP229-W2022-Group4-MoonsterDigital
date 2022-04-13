@@ -17,6 +17,9 @@ import { TournamentEditorComponent } from './tournament-editor/tournament-editor
 import { AuthGuard } from '../admin/auth/auth.guard';
 import { TournamentAddPlayerComponent } from './tournament-add-player/tournament-add-player.component';
 import { BracketComponent } from './bracket/bracket.component';
+import { BracketQfEditComponent } from './bracket-qf-edit/bracket-qf-edit.component';
+import { BracketSfEditComponent } from './bracket-sf-edit/bracket-sf-edit.component';
+import { BracketFinalEditComponent } from './bracket-final-edit/bracket-final-edit.component';
 
 const routes = RouterModule.forChild([
   {
@@ -36,7 +39,7 @@ const routes = RouterModule.forChild([
 @NgModule({
   imports: [ModelModule, CommonModule, FormsModule, ReactiveFormsModule, routes],
   providers: [AuthGuard],
-  declarations: [TournamentListComponent, TournamentEditorComponent, TournamentAddPlayerComponent, BracketComponent],
+  declarations: [TournamentListComponent, TournamentEditorComponent, TournamentAddPlayerComponent, BracketComponent, BracketQfEditComponent, BracketSfEditComponent, BracketFinalEditComponent],
   exports: [TournamentListComponent]
 })
 export class TournamentModule {}

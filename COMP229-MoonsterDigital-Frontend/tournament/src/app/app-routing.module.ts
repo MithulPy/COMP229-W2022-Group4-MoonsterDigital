@@ -4,10 +4,16 @@ import { FormsModule } from '@angular/forms';
 
 import { HomeComponent } from './pages/home/home.component';
 import { BracketComponent } from './tournament/bracket/bracket.component';
+import { BracketFinalEditComponent } from './tournament/bracket-final-edit/bracket-final-edit.component';
+import { BracketQfEditComponent } from './tournament/bracket-qf-edit/bracket-qf-edit.component';
+import { BracketSfEditComponent } from './tournament/bracket-sf-edit/bracket-sf-edit.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, data: { title: 'Home' } },
   { path: 'bracket', component: BracketComponent, data: { title: 'Bracket' } },
+  { path: 'bracket-qf-edit', component: BracketQfEditComponent, data: { title: 'Bracket' } },
+  { path: 'bracket-sf-edit', component: BracketSfEditComponent, data: { title: 'Bracket' } },
+  { path: 'bracket-final-edit', component: BracketFinalEditComponent, data: { title: 'Bracket' } },
 
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
   { path: 'forum', loadChildren: () => import('./forum/forum.module').then(m => m.ForumModule)},
