@@ -67,7 +67,7 @@ export class RoundRepo {
         return this.rounds.find(b => b._id == id)!;
     }
 
-    getBulkWritePlayerByTournamentId(tournamentId: number) {
+    getBulkWriteRoundByTournamentId(tournamentId: number) {
         this.loadBulkWriteRounds();
         return this.bulkWriteRounds.find(b => b.tournamentId == tournamentId)!;
     }

@@ -10,8 +10,8 @@
     constructor(
         public _id?:number,
         public tournamentId?:number,
-        public number?:number,
-        public displayName?:String,
+        public final?:object,
+        public semifinal?:object,
     ){}
 
     public toString(): string
@@ -21,8 +21,8 @@
         -------------------------------
         Id             : ${this._id}
         Tournament id  : ${this.tournamentId}
-        Player Id      : ${this.number}
-        Name           : ${this.displayName}
+        final          : ${this.final}
+        semifinal      : ${this.semifinal}
         -------------------------------
         `;
     }
