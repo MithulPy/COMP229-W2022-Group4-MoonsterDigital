@@ -196,7 +196,8 @@ module.exports.processBulkUpsertPage = async (req, res, next) => {
 
         console.log(response)
         if (response.result.ok == 1) {
-            res.json({ success: true, msg: 'Successfully Edited Players' });
+            //res.json({ success: true, msg: 'Successfully Edited Players' });
+            next();
         }
         else {
             res.json({ success: false, msg: 'Failed to Edit Players' });

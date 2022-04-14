@@ -13,7 +13,14 @@
  let roundsController = require('../controllers/rounds');
  
  /** GET route to home */
- router.get('/', roundsController.testRounds);
+ router.get('/:tournamentId', roundsController.displayRounds);
+ router.post('/set-semiFinal', roundsController.processUpsertSemiFinal);
+ router.post('/set-final', roundsController.processUpsertFinal);
+ router.post('/set-winner', roundsController.processUpsertWinner);
+
+ //Just dev routes
+ router.get('/getRounds', roundsController.getRounds);
+
  
 
  module.exports = router;
