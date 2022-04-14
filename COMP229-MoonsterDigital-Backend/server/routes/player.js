@@ -11,6 +11,7 @@
  var router = express.Router();
    
  let playerController = require('../controllers/player');
+ let roundsController = require('../controllers/rounds');
  let jwt = require('jsonwebtoken');
 
  let passport = require('passport');
@@ -28,6 +29,6 @@
  router.get('/bulk-upsert', /*passport.authenticate('jwt', {session: false}),*/ playerController.displayBulkUpsertPage);
 
  /* Post Route for the register player page - Bulk Upsert Operation */
- router.post('/bulk-upsert', passport.authenticate('jwt', {session: false}), playerController.processBulkUpsertPage);
+ router.post('/bulk-upsert', passport.authenticate('jwt', {session: false}), playerController.processBulkUpsertPage,roundsController.getPlayersFromTournament);
 
  module.exports = router;
