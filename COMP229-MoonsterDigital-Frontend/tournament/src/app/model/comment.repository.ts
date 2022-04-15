@@ -51,4 +51,8 @@ export class CommentRepo {
             });
         }
     }
+
+    get username(): String {
+        return this.dataSource.getUsername();
+    }
 }

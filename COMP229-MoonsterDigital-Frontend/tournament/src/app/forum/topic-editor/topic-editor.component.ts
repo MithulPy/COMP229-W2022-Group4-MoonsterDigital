@@ -34,7 +34,7 @@ export class TopicEditorComponent implements OnInit {
 
     this.topicForm = this.formBuilder.group({
       id: [],
-      username: ['???', Validators.required], //TODO
+      username: [this.repository.username],
       date: [], //TODO
       topicTitle: ['', Validators.required],
       content: ['', Validators.required],

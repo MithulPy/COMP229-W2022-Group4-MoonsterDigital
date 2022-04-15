@@ -51,4 +51,8 @@ export class TopicRepo {
     {
       return this.dataSource.loggedIn();
     }
+
+    get username(): String {
+        return this.dataSource.getUsername();
+    }
 }

@@ -34,7 +34,7 @@ export class CommentEditorComponent implements OnInit {
     this.commentForm = this.formBuilder.group({
       id: [],
       topicId: [this.topicId],
-      username: ['???', Validators.required], //TODO
+      username: [this.repository.username],
       date: [], //TODO
       title: ['', Validators.required],
       content: ['', Validators.required],
