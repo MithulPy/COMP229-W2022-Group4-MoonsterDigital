@@ -18,9 +18,9 @@
  
  /** GET route to home */
  router.get('/:tournamentId', roundsController.displayRounds);
- router.post('/set-semiFinal', roundsController.processUpsertSemiFinal);
- router.post('/set-final', roundsController.processUpsertFinal);
- router.post('/set-winner', roundsController.processUpsertWinner);
+ router.post('/set-semiFinal',passport.authenticate('jwt', {session: false}), roundsController.processUpsertSemiFinal);
+ router.post('/set-final',passport.authenticate('jwt', {session: false}), roundsController.processUpsertFinal);
+ router.post('/set-winner',passport.authenticate('jwt', {session: false}), roundsController.processUpsertWinner);
 
  //Just dev routes
  router.get('/getRounds', roundsController.getRounds);
