@@ -69,12 +69,17 @@ export class TournamentListComponent implements OnInit {
     this.router.navigateByUrl('/tournament/list');
   }
 
-  getSplittedISODateString(date: Date): string {
+  getSplittedISODateString(date: Date): string
+  {
     return new Date(date).toISOString().split('T')[0];
   }
 
   isLoggedIn(): boolean
   {    
     return this.repository.authenticated;
+  }
+
+  isOwner(owner: String): boolean{
+    return this.repository.username == owner;
   }
 }

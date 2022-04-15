@@ -37,7 +37,7 @@
         <!--Cancel Button-->
         <button type='reset' class="btn btn-secondary m-3" (click)='returnToTournamentList()'> Cancel</button>
         <!--Submit Button-->
-        <button class="btn btn-primary m-3" type='submit'> Submit</button>
+        <button class="btn btn-primary m-3" type='submit' [disabled]="!enableSubmission"> Submit</button>
       </div>
     </form>
   </div>

@@ -29,6 +29,7 @@
    player4!: String;
    team1!: String;
    team2!: String;
+   enableSubmission = false;
  
    constructor(private formBuilder: FormBuilder,
      private repository: RoundsRepo,
@@ -59,8 +60,16 @@
          this.team2 = cloneObj!.Final!.team2![0]!.displayName!; 
      }
      this.createWinnerForm();
+
+     if (this.player1 !== "" && this.player1 != null && this.player1 !== undefined &&
+       this.player2 !== "" && this.player2 != null && this.player2 !== undefined &&
+       this.player3 !== "" && this.player3 != null && this.player3 !== undefined &&
+       this.player4 !== "" && this.player4 != null && this.player4 !== undefined)
+       this.enableSubmission = true;
+     else
+       this.enableSubmission = false;
    }
- 
+
    createWinnerForm() {
      this.winnerForm = this.formBuilder.group({
        tournamentId: this.tournamentId,

@@ -35,6 +35,7 @@ export class BracketQfEditComponent implements OnInit {
   team2!: String;
   team3!: String;
   team4!: String;
+  enableSubmission = false;
 
   constructor(private formBuilder: FormBuilder,
     private repository: RoundsRepo,
@@ -73,6 +74,18 @@ export class BracketQfEditComponent implements OnInit {
         this.team4 = cloneObj!.SemiFinal!.team4![0]!.displayName!; 
     }
     this.createWinnerForm();
+
+    if (this.player1 !== "" && this.player1 != null && this.player1 !== undefined &&
+      this.player2 !== "" && this.player2 != null && this.player2 !== undefined &&
+      this.player3 !== "" && this.player3 != null && this.player3 !== undefined &&
+      this.player4 !== "" && this.player4 != null && this.player4 !== undefined &&
+      this.player5 !== "" && this.player5 != null && this.player5 !== undefined &&
+      this.player6 !== "" && this.player6 != null && this.player6 !== undefined &&
+      this.player7 !== "" && this.player7 != null && this.player7 !== undefined &&
+      this.player8 !== "" && this.player8 != null && this.player8 !== undefined)
+      this.enableSubmission = true;
+    else
+      this.enableSubmission = false;
   }
 
   createWinnerForm() {

@@ -177,5 +177,14 @@ export class RestDataSource {
     else
         return '';
   }
+
+  getUsername(): String {
+    this.loadUser();
+    
+    if (this.user != null)
+      return this.user.username;
+    else
+        return '';
+  }
 }
 

@@ -70,8 +70,11 @@ export class TournamentRepo {
         });
     }
 
-    get authenticated(): boolean
-    {
-      return this.dataSource.loggedIn();
+    get authenticated(): boolean {
+        return this.dataSource.loggedIn();
+    }
+
+    get username(): String {
+        return this.dataSource.getUsername();
     }
 }

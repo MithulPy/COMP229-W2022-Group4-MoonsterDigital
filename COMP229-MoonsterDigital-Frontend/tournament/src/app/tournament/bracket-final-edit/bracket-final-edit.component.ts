@@ -26,6 +26,7 @@
    player1!: String;
    player2!: String;
    team1!: String;
+   enableSubmission = false;
  
    constructor(private formBuilder: FormBuilder,
      private repository: RoundsRepo,
@@ -50,6 +51,12 @@
          this.team1 = cloneObj!.Winner![0]!.displayName!;  
      }
      this.createWinnerForm();
+
+     if (this.player1 !== "" && this.player1 != null && this.player1 !== undefined &&
+       this.player2 !== "" && this.player2 != null && this.player2 !== undefined)
+       this.enableSubmission = true;
+     else
+       this.enableSubmission = false;
    }
  
    createWinnerForm() {
