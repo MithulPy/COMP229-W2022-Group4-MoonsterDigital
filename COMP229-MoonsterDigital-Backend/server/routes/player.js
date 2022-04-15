@@ -29,6 +29,6 @@
  router.get('/bulk-upsert', /*passport.authenticate('jwt', {session: false}),*/ playerController.displayBulkUpsertPage);
 
  /* Post Route for the register player page - Bulk Upsert Operation */
- router.post('/bulk-upsert', passport.authenticate('jwt', {session: false}), playerController.processBulkUpsertPage,roundsController.getPlayersFromTournament);
+ router.post('/bulk-upsert', passport.authenticate('jwt', {session: false}), playerController.processBulkUpsertPage, roundsController.getPlayersFromTournament);
 
  module.exports = router;

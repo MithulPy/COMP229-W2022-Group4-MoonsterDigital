@@ -22,24 +22,20 @@ import { BracketSfEditComponent } from './bracket-sf-edit/bracket-sf-edit.compon
 import { BracketFinalEditComponent } from './bracket-final-edit/bracket-final-edit.component';
 
 const routes = RouterModule.forChild([
-  {
-    path: 'list', component: TournamentListComponent, data: { title: 'Tournaments' },
-  },
-  {
-    path: ':mode', component: TournamentEditorComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'player/:id', component: TournamentAddPlayerComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: ':mode/:id', component: TournamentEditorComponent, canActivate: [AuthGuard]
-  },
+  { path: 'list', component: TournamentListComponent, data: { title: 'Tournaments' } },
+  { path: 'player/:id', component: TournamentAddPlayerComponent, canActivate: [AuthGuard] },
+  { path: 'bracket/:id', component: BracketComponent, data: { title: 'Bracket Summary' } },
+  { path: 'bracket-qf-edit/:id', component: BracketQfEditComponent, data: { title: 'Quarter-Finals' } },
+  { path: 'bracket-sf-edit/:id', component: BracketSfEditComponent, data: { title: 'Semi-Finals' } },
+  { path: 'bracket-final-edit/:id', component: BracketFinalEditComponent, data: { title: 'Finals' } },
+  { path: ':mode', component: TournamentEditorComponent, canActivate: [AuthGuard] },
+  { path: ':mode/:id', component: TournamentEditorComponent, canActivate: [AuthGuard] },
 ]);
 
 @NgModule({
   imports: [ModelModule, CommonModule, FormsModule, ReactiveFormsModule, routes],
   providers: [AuthGuard],
-  declarations: [TournamentListComponent, TournamentEditorComponent, TournamentAddPlayerComponent, BracketComponent, BracketQfEditComponent, BracketSfEditComponent, BracketFinalEditComponent],
-  exports: [TournamentListComponent]
+  declarations: [TournamentListComponent, TournamentAddPlayerComponent,TournamentEditorComponent, 
+    BracketComponent, BracketQfEditComponent, BracketSfEditComponent, BracketFinalEditComponent]
 })
 export class TournamentModule {}

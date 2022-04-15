@@ -13,9 +13,8 @@ import { Rounds } from './rounds.model';
 import { BulkWriteRounds } from './bulkwriterounds.model';
 
 @Injectable()
-export class RoundRepo {
+export class RoundsRepo {
     private rounds: Rounds[] = [];
-    private bulkWriteRounds: BulkWriteRounds[] = [];
 
     constructor(private dataSource: RestDataSource,
         private tournamentRepo: TournamentRepo) {
@@ -26,10 +25,6 @@ export class RoundRepo {
         this.dataSource.getRounds().subscribe(data => {
             this.rounds = data;
             this.storeRoundData(data);
-        });
-        this.dataSource.getBulkWriteRounds().subscribe(data => {
-            this.bulkWriteRounds = data;
-            this.storeBulkWriteRoundsData(data);
         });
     }
 
@@ -42,40 +37,39 @@ export class RoundRepo {
       this.rounds = JSON.parse(localStorage.getItem('rounds')!);
     }
 
-    storeBulkWriteRoundsData(bulkWriteRounds: BulkWriteRounds[]) {
-        localStorage.setItem('bulkWriteRounds', JSON.stringify(bulkWriteRounds));
-        this.bulkWriteRounds = bulkWriteRounds;
-    }
-
-    loadBulkWriteRounds(): void {
-        this.bulkWriteRounds = JSON.parse(localStorage.getItem('bulkWriteRounds')!);
-    }
-
     getRounds() {
         this.loadRounds();
         return this.rounds;
     }
 
-    getRoundsByTournamentId(tournamentId: any){
+    getRoundsByTournamentId(tournamentId: number){
         this.loadRounds();
-        return this.rounds.filter(a => a.tournamentId === tournamentId);
+        return this.rounds.find(a => a.TournamentId === tournamentId);
     }
 
-    getRound(id: any)
-    {
-        this.loadRounds();
-        return this.rounds.find(b => b._id == id)!;
-    }
-
-    getBulkWriteRoundByTournamentId(tournamentId: number) {
-        this.loadBulkWriteRounds();
-        return this.bulkWriteRounds.find(b => b.tournamentId == tournamentId)!;
-    }
-
-    bulkWriteRound(bulkWriteRounds: BulkWriteRounds): void {        
-        this.dataSource.bulkWriteRegisteredRounds(bulkWriteRounds).subscribe(b => {
+    upsertQuarterFinals(winners: any): void {        
+        this.dataSource.upsertQuarterFinalResults(winners).subscribe(b => {
             this.refresh();
             this.tournamentRepo.refresh();
         });
+    }
+
+    upsertSemiFinals(winners: any): void {        
+        this.dataSource.upsertSemiFinalResults(winners).subscribe(b => {
+            this.refresh();
+            this.tournamentRepo.refresh();
+        });
+    }
+
+    upsertFinals(winners: any): void {        
+        this.dataSource.upsertFinalResults(winners).subscribe(b => {
+            this.refresh();
+            this.tournamentRepo.refresh();
+        });
+    }
+
+    get authenticated(): boolean
+    {
+      return this.dataSource.loggedIn();
     }
 }

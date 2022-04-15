@@ -11,6 +11,7 @@ import { Player } from './player.model';
 import { RestDataSource } from './rest.datasource';
 import { BulkWritePlayers } from './bulkwriteplayers.model';
 import { TournamentRepo } from './tournament.repository';
+import { RoundsRepo } from './rounds.repository';
 
 @Injectable()
 export class PlayerRepo {
@@ -18,7 +19,8 @@ export class PlayerRepo {
     private bulkWritePlayers: BulkWritePlayers[] = [];
 
     constructor(private dataSource: RestDataSource,
-        private tournamentRepo: TournamentRepo) {
+        private tournamentRepo: TournamentRepo,
+        private roundsRepo: RoundsRepo) {
         this.refresh();
     }
 
@@ -76,6 +78,7 @@ export class PlayerRepo {
         this.dataSource.bulkWriteRegisteredPlayers(bulkWritePlayers).subscribe(b => {
             this.refresh();
             this.tournamentRepo.refresh();
+            this.roundsRepo.refresh();
         });
     }
 }

@@ -38,9 +38,29 @@ export class TournamentListComponent implements OnInit {
     this.router.navigateByUrl('/tournament/edit/' + id);
   }
 
-  registerPlayers(id: number) : void
+  registerPlayers(id: number): void
   {
     this.router.navigateByUrl('/tournament/player/' + id);
+  }
+
+  editQuarterFinals(id: number): void
+  {
+    this.router.navigateByUrl('/tournament/bracket-qf-edit/' + id);
+  }
+  
+  editSemiFinals(id: number): void
+  {
+    this.router.navigateByUrl('/tournament/bracket-sf-edit/' + id);
+  }
+  
+  editFinals(id: number): void
+  {
+    this.router.navigateByUrl('/tournament/bracket-final-edit/' + id);
+  }
+
+  viewSummary(id: number): void
+  {
+    this.router.navigateByUrl('/tournament/bracket/' + id);
   }
 
   deleteTournament(id: number): void

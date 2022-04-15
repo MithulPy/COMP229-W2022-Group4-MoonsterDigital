@@ -9,19 +9,17 @@
 
  var express = require('express');
  var router = express.Router();
- 
+ let jwt = require('jsonwebtoken');
+ let passport = require('passport');
+
  let roundsController = require('../controllers/rounds');
  
  /** GET route to home */
- router.get('/:tournamentId', roundsController.displayRounds);
- router.post('/set-semiFinal', roundsController.processUpsertSemiFinal);
- router.post('/set-final', roundsController.processUpsertFinal);
- router.post('/set-winner', roundsController.processUpsertWinner);
-
- //Just dev routes
- router.get('/getRounds', roundsController.getRounds);
-
- 
+ router.get('/list', roundsController.displayRounds);
+ router.get('/:id', roundsController.getRound);
+ router.post('/upsert-semiFinals', passport.authenticate('jwt', {session: false}), roundsController.processUpsertSemiFinal);
+ router.post('/upsert-finals', passport.authenticate('jwt', {session: false}), roundsController.processUpsertFinal);
+ router.post('/upsert-winner', passport.authenticate('jwt', {session: false}), roundsController.processUpsertWinner); 
 
  module.exports = router;
  

@@ -10,11 +10,6 @@ import { BracketSfEditComponent } from './tournament/bracket-sf-edit/bracket-sf-
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, data: { title: 'Home' } },
-  { path: 'bracket', component: BracketComponent, data: { title: 'Bracket' } },
-  { path: 'bracket-qf-edit', component: BracketQfEditComponent, data: { title: 'Bracket' } },
-  { path: 'bracket-sf-edit', component: BracketSfEditComponent, data: { title: 'Bracket' } },
-  { path: 'bracket-final-edit', component: BracketFinalEditComponent, data: { title: 'Bracket' } },
-
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
   { path: 'forum', loadChildren: () => import('./forum/forum.module').then(m => m.ForumModule)},
   { path: 'tournament', loadChildren: () => import('./tournament/tournament.module').then(m => m.TournamentModule)},

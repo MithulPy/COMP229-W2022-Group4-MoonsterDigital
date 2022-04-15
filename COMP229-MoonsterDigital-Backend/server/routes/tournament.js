@@ -17,8 +17,8 @@ let passport = require('passport');
 
 
  
- /** Show Tournaments available  */
- router.get('/list', tournamentController.displayTournaments);
+/** Show Tournaments available  */
+router.get('/list', tournamentController.displayTournaments);
 
 /* Post Route for the Edit tournament page - Update Operation */
 router.get('/edit/:id', tournamentController.displayEditPage);

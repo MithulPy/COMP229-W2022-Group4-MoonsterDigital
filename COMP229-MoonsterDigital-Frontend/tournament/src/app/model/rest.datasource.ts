@@ -86,19 +86,9 @@ export class RestDataSource {
     return this.http.get<Player[]>(this.baseUrl + 'player/list');
   }
 
-  getRounds(): Observable<Rounds[]> {
-    this.loadToken();
-    return this.http.get<Rounds[]>(this.baseUrl + 'rounds/list');
-  }
-
   getBulkWritePlayers(): Observable<BulkWritePlayers[]> {
     this.loadToken();
     return this.http.get<BulkWritePlayers[]>(this.baseUrl + 'player/bulk-upsert', this.httpOptions);
-  }
-
-  getBulkWriteRounds(): Observable<BulkWriteRounds[]> {
-    this.loadToken();
-    return this.http.get<BulkWriteRounds[]>(this.baseUrl + 'rounds/bulk-upsert', this.httpOptions);
   }
 
   bulkWriteRegisteredPlayers(bulkWritePlayers: BulkWritePlayers): Observable<any>{
@@ -106,10 +96,25 @@ export class RestDataSource {
       return this.http.post<BulkWritePlayers>(`${this.baseUrl}player/bulk-upsert`, bulkWritePlayers, this.httpOptions);
   }
 
-  bulkWriteRegisteredRounds(bulkWriteRounds: BulkWriteRounds): Observable<any>{
+  getRounds(): Observable<Rounds[]> {
     this.loadToken();
-    return this.http.post<BulkWritePlayers>(`${this.baseUrl}player/bulk-upsert`, bulkWriteRounds, this.httpOptions);
-}
+    return this.http.get<Rounds[]>(this.baseUrl + 'rounds/list');
+  }
+
+  upsertQuarterFinalResults(winners: any): Observable<any> {
+    this.loadToken();
+    return this.http.post<any>(`${this.baseUrl}rounds/upsert-semiFinals`, winners, this.httpOptions);
+  }
+
+  upsertSemiFinalResults(winners: any): Observable<any>{
+    this.loadToken();
+    return this.http.post<BulkWritePlayers>(`${this.baseUrl}rounds/upsert-finals`, winners, this.httpOptions);
+  }
+
+  upsertFinalResults(winners: any): Observable<any>{
+    this.loadToken();
+    return this.http.post<any>(`${this.baseUrl}rounds/upsert-winner`, winners, this.httpOptions);
+  }
 
   authenticate(user: User, userlist: any): Observable<any> {
     let body: any = {};

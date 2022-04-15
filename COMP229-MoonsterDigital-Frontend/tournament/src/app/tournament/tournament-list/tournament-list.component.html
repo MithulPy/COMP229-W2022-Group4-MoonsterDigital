@@ -38,10 +38,7 @@
                     <th *ngIf='isLoggedIn()' class="text-center col-1">Round 1</th>
                     <th *ngIf='isLoggedIn()' class="text-center col-1">Round 2</th>
                     <th *ngIf='isLoggedIn()' class="text-center col-1">Round 3</th>
-                    <th *ngIf='!isLoggedIn()' class="text-center col-1">Round 1 </th>
-                    <th *ngIf='!isLoggedIn()' class="text-center col-1">Round 2</th>
-                    <th *ngIf='!isLoggedIn()' class="text-center col-1">Round 3</th>
-                    <th  class="text-center col-1">Bracket</th>
+                    <th class="text-center col-1">View Result </th>
                     <th *ngIf='isLoggedIn()' class="text-center col-1">Delete</th>
                 </tr>
             </thead>
@@ -87,38 +84,23 @@
                         </button>
                     </td>                    
                     <td *ngIf='isLoggedIn()' class="text-center col-1">
-                        <button [routerLink]="['/bracket-qf-edit']" class="btn btn-sm btn-dark m-1">
-                            <i class="fas fa-pencil-alt"></i> Round 1
+                        <button class="btn btn-sm btn-dark m-1" (click)='editQuarterFinals(tournament._id!)'>
+                            <i class="fas fa-trophy"></i> Round 1
                         </button>
                     </td>
                     <td *ngIf='isLoggedIn()' class="text-center col-1">
-                        <button [routerLink]="['/bracket-sf-edit']" class="btn btn-sm btn-dark m-1">
-                            <i class="fas fa-pencil-alt"></i> Round 2
+                        <button class="btn btn-sm btn-dark m-1" (click)='editSemiFinals(tournament._id!)'>
+                            <i class="fas fa-trophy"></i> Round 2
                         </button>
                     </td>
                     <td *ngIf='isLoggedIn()' class="text-center col-1">
-                        <button [routerLink]="['/bracket-final-edit']" class="btn btn-sm btn-dark m-1">
-                            <i class="fas fa-pencil-alt"></i> Round 3
-                        </button>
-                    </td>
-                    <td *ngIf='!isLoggedIn()' class="text-center col-1">
-                        <button [routerLink]="['/bracket-qf-edit']" class="btn btn-sm btn-dark m-1">
-                            R1
-                        </button>
-                    </td>
-                    <td *ngIf='!isLoggedIn()' class="text-center col-1">
-                        <button [routerLink]="['/bracket-sf-edit']" class="btn btn-sm btn-dark m-1">
-                            R2
-                        </button>
-                    </td>
-                    <td *ngIf='!isLoggedIn()' class="text-center col-1">
-                        <button [routerLink]="['/bracket-final-edit']" class="btn btn-sm btn-dark m-1">
-                            R3
+                        <button class="btn btn-sm btn-dark m-1" (click)='editFinals(tournament._id!)'>
+                            <i class="fas fa-trophy"></i> Round 3
                         </button>
                     </td>
                     <td class="text-center col-1">
-                        <button [routerLink]="['/bracket']" class="btn btn-sm btn-dark m-1">
-                            View 
+                        <button class="btn btn-sm btn-dark m-1" (click)='viewSummary(tournament._id!)'>
+                            <i class="fas fa-file"></i> View Result
                         </button>
                     </td>
                     <td *ngIf='isLoggedIn()' class="text-center col-1">
