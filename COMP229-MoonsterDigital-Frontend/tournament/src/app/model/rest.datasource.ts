@@ -9,6 +9,8 @@ import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from './user.model';
 import { BulkWritePlayers } from './bulkwriteplayers.model';
+import { Rounds } from './rounds.model';
+import { BulkWriteRounds } from './bulkwriterounds.model';
 
 const PROTOCOL = 'https';
 const PORT = 3500;
@@ -84,15 +86,30 @@ export class RestDataSource {
     return this.http.get<Player[]>(this.baseUrl + 'player/list');
   }
 
+  getRounds(): Observable<Rounds[]> {
+    this.loadToken();
+    return this.http.get<Rounds[]>(this.baseUrl + 'rounds/list');
+  }
+
   getBulkWritePlayers(): Observable<BulkWritePlayers[]> {
     this.loadToken();
     return this.http.get<BulkWritePlayers[]>(this.baseUrl + 'player/bulk-upsert', this.httpOptions);
+  }
+
+  getBulkWriteRounds(): Observable<BulkWriteRounds[]> {
+    this.loadToken();
+    return this.http.get<BulkWriteRounds[]>(this.baseUrl + 'rounds/bulk-upsert', this.httpOptions);
   }
 
   bulkWriteRegisteredPlayers(bulkWritePlayers: BulkWritePlayers): Observable<any>{
       this.loadToken();
       return this.http.post<BulkWritePlayers>(`${this.baseUrl}player/bulk-upsert`, bulkWritePlayers, this.httpOptions);
   }
+
+  bulkWriteRegisteredRounds(bulkWriteRounds: BulkWriteRounds): Observable<any>{
+    this.loadToken();
+    return this.http.post<BulkWritePlayers>(`${this.baseUrl}player/bulk-upsert`, bulkWriteRounds, this.httpOptions);
+}
 
   authenticate(user: User, userlist: any): Observable<any> {
     let body: any = {};
