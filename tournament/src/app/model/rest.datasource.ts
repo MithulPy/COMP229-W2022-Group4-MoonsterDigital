@@ -34,7 +34,7 @@ export class RestDataSource {
     private jwtService: JwtHelperService) {
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
     //this.baseUrl = `http://localhost:3000/tournament/`;
-    this.baseUrl = `http://localhost:3000/api/`;
+    this.baseUrl = `https://comp229-backend-moonster-digi.herokuapp.com/api/`;
     this.user = new User();
   }
 
@@ -120,7 +120,7 @@ export class RestDataSource {
     let body: any = {};
     body['body'] = user;
     body['userList'] = userlist
-    return this.http.post<any>('http://localhost:3000/' + 'login', body, this.httpOptions);
+    return this.http.post<any>(this.baseUrl  + 'login', body, this.httpOptions);
   }
 
   login(pair: any): Observable<any> {
@@ -160,7 +160,7 @@ export class RestDataSource {
     this.authToken = null || '';
     this.user = null;
     localStorage.clear();
-    return this.http.get<any>('http://localhost:3000/' + 'logout', this.httpOptions);
+    return this.http.get<any>(this.baseUrl + 'logout', this.httpOptions);
   }
 
   loggedIn(): boolean {
