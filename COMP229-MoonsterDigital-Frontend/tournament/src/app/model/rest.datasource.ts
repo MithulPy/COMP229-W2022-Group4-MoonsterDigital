@@ -159,7 +159,7 @@ export class RestDataSource {
   logout(): Observable<any> {
     this.authToken = null || '';
     this.user = null;
-    localStorage.clear();
+    localStorage.removeItem('user');
     return this.http.get<any>('http://localhost:3000/' + 'logout', this.httpOptions);
   }
 
