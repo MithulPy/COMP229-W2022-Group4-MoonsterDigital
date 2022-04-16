@@ -9,7 +9,7 @@
 
 var express = require('express');
 var router = express.Router();
- 
+
 let indexController = require('../controllers/index');
 
 /** GET route to home */
@@ -31,4 +31,12 @@ router.post('/register', indexController.processRegisterPage);
 router.get('/logout', indexController.performLogout);
 
 router.post('/logout', indexController.performLogout);
+
+
+
+
+
 module.exports = router;
+
+
+

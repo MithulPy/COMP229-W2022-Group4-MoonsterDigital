@@ -15,11 +15,60 @@ let alert = require('alert');
 
 //importing model
 let Tournament = require('../models/tournament');
+let RoundsModel = require('../models/rounds');
 
 // displaying list method and ordering by name
 module.exports.displayTournaments = (req, res, next) => {
 
-    let query =  Tournament.find().sort({"name":1} );   //filtering and ordering with mongoose method
+    let query = Tournament//.find().sort({"title":1} );   //filtering and ordering with mongoose method
+        .aggregate([
+            { $sort: { "title": 1 } },
+            {
+                "$project": {
+                    "_id": 1,
+                    "owner" : 1,
+                    "title" : 1,
+                    "description" : 1,
+                    "isActive" : 1,
+                    "isCompleted" : 1,
+                    "players" : 1,
+                    "startDate" : 1,
+                    "endDate" : 1,
+                    "rounds" : 1,
+                    "isActive" : 1,
+                    "_stringId": {
+                        "$toString": "$_id"
+                    }
+                }
+            },
+            // {
+            //   "$unwind": "$registeredPlayers"
+            // },
+            {
+                "$lookup": {
+                    "from": "players",
+                    "localField": "_stringId",
+                    "foreignField": "tournamentId",
+                    "as": "registeredPlayers"
+                }
+            },
+            {
+                "$set": {
+                    "players": [
+                        { "$arrayElemAt": ["$registeredPlayers.displayName", 0] },
+                        { "$arrayElemAt": ["$registeredPlayers.displayName", 1] },
+                        { "$arrayElemAt": ["$registeredPlayers.displayName", 2] },
+                        { "$arrayElemAt": ["$registeredPlayers.displayName", 3] },
+                        { "$arrayElemAt": ["$registeredPlayers.displayName", 4] },
+                        { "$arrayElemAt": ["$registeredPlayers.displayName", 5] },
+                        { "$arrayElemAt": ["$registeredPlayers.displayName", 6] },
+                        { "$arrayElemAt": ["$registeredPlayers.displayName", 7] },
+                    ]
+                }
+            }
+        ]);
+
+
    query.exec((err, tournamentList) => {               //calling exect method to be able to execute an arrow method using the sorted list
     if (err) {
         return console.error(err);

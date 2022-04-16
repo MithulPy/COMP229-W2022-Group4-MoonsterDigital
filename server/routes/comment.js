@@ -22,6 +22,6 @@
  router.post('/edit/:id',passport.authenticate('jwt', {session: false}), commentController.processEditPage);
  
  /* Post Route for the ADD comment page - Update Operation */
- router.post('/add', commentController.processAddPage);
+ router.post('/add',passport.authenticate('jwt', {session: false}), commentController.processAddPage);
   
  module.exports = router;

@@ -17,8 +17,8 @@ let passport = require('passport');
 
 
  
- /** Show Tournaments available  */
- router.get('/list', tournamentController.displayTournaments);
+/** Show Tournaments available  */
+router.get('/list', tournamentController.displayTournaments);
 
 /* Post Route for the Edit tournament page - Update Operation */
 router.get('/edit/:id', tournamentController.displayEditPage);
@@ -34,6 +34,5 @@ router.post('/add', tournamentController.processAddPage);
 
 /* GET Route for the Delete tournament page - Delete Operation */
 router.get('/delete/:id', passport.authenticate('jwt', {session: false}), tournamentController.performDelete);
-
  
  module.exports = router;
