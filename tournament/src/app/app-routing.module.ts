@@ -3,6 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { HomeComponent } from './pages/home/home.component';
+import { BracketComponent } from './tournament/bracket/bracket.component';
+import { BracketFinalEditComponent } from './tournament/bracket-final-edit/bracket-final-edit.component';
+import { BracketQfEditComponent } from './tournament/bracket-qf-edit/bracket-qf-edit.component';
+import { BracketSfEditComponent } from './tournament/bracket-sf-edit/bracket-sf-edit.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, data: { title: 'Home' } },

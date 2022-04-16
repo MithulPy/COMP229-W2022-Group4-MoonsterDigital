@@ -28,21 +28,13 @@ export class TopicEditorComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private repository: TopicRepo,
     private router: Router,
-    private route: ActivatedRoute) {
-    this.createTopicForm();
-    this.editing = route.snapshot.params['mode'] === 'edit';
-    //console.log(route.snapshot.params['mode']);
-    // if (this.editing)
-    // {
-    //   Object.assign(this.topic, repository.getTopic(route.snapshot.params['id']));
-    // }
-  }
+    private route: ActivatedRoute) { }
 
   createTopicForm() {
 
     this.topicForm = this.formBuilder.group({
       id: [],
-      username: ['???', Validators.required], //TODO
+      username: [this.repository.username],
       date: [], //TODO
       topicTitle: ['', Validators.required],
       content: ['', Validators.required],
@@ -50,7 +42,9 @@ export class TopicEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.editing = this.route.snapshot.params['mode'] === 'edit';
     this.title = this.editing ? 'Edit Topic' : 'Add Topic';
+    this.createTopicForm();
   }
 
   onSubmit() {

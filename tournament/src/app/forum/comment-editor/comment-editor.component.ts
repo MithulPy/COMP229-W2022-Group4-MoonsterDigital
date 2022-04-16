@@ -28,32 +28,24 @@ export class CommentEditorComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private repository: CommentRepo,
     private router: Router,
-    private route: ActivatedRoute) {
-    this.editing = route.snapshot.params['mode'] === 'edit';
-    this.topicId = route.snapshot.params['topicId'];
-    this.createCommentForm();
-    console.log(route.snapshot.params['mode']);
-    console.log(route.snapshot.params['topicId']);
-    //console.log(route.snapshot.params['mode']);
-    // if (this.editing)
-    // {
-    //   Object.assign(this.comment, repository.getComment(route.snapshot.params['id']));
-    // }
-  }
+    private route: ActivatedRoute) { }
 
   createCommentForm() {
     this.commentForm = this.formBuilder.group({
       id: [],
       topicId: [this.topicId],
-      username: ['???', Validators.required], //TODO
+      username: [this.repository.username],
       date: [], //TODO
       title: ['', Validators.required],
       content: ['', Validators.required],
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    this.editing = this.route.snapshot.params['mode'] === 'edit';
+    this.topicId = this.route.snapshot.params['topicId'];
     this.title = this.editing ? 'Edit Comment' : 'Add Comment';
+    this.createCommentForm();
   }
 
   onSubmit() {

@@ -2,21 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tournament } from './tournament.model';
+import { Player } from './player.model';
 import { Topic } from './topic.model';
 import { Comment } from './comment.model';
 import { map } from 'rxjs/operators';
-
 import { JwtHelperService } from '@auth0/angular-jwt';
-
 import { User } from './user.model';
+import { BulkWritePlayers } from './bulkwriteplayers.model';
+import { Rounds } from './rounds.model';
+import { BulkWriteRounds } from './bulkwriterounds.model';
 
 const PROTOCOL = 'https';
 const PORT = 3500;
 
 @Injectable()
 export class RestDataSource {
-  user: User | null;
   baseUrl: string;
+  user: User | null;
   authToken!: string;
 
   private httpOptions =
@@ -30,10 +32,10 @@ export class RestDataSource {
 
   constructor(private http: HttpClient,
     private jwtService: JwtHelperService) {
-    this.user = new User();
     // this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api/`;
     //this.baseUrl = `http://localhost:3000/tournament/`;
-    this.baseUrl = `https://comp229-backend-moonster-digi.herokuapp.com/api/`;;
+    this.baseUrl = `http://localhost:3000/api/`;
+    this.user = new User();
   }
 
   getTopics(): Observable<Topic[]> {
@@ -44,7 +46,7 @@ export class RestDataSource {
   addTopic(topic: Topic): Observable<Topic> {
     //console.log(JSON.stringify(topic));
     this.loadToken();
-    return this.http.post<Topic>(this.baseUrl + 'topic/add', topic);
+    return this.http.post<Topic>(this.baseUrl + 'topic/add', topic, this.httpOptions);
   }
 
   getComments(): Observable<Comment[]> {
@@ -55,7 +57,7 @@ export class RestDataSource {
   addComment(comment: Comment): Observable<Comment> {
     //console.log(JSON.stringify(comment));
     this.loadToken();
-    return this.http.post<Comment>(this.baseUrl + 'comment/add', comment);
+    return this.http.post<Comment>(this.baseUrl + 'comment/add', comment, this.httpOptions);
   }
 
   getTournaments(): Observable<Tournament[]> {
@@ -79,11 +81,46 @@ export class RestDataSource {
     return this.http.post<Tournament>(`${this.baseUrl}tournament/edit/${tournament._id}`, tournament, this.httpOptions);
   }
 
+  getRegisteredPlayers(): Observable<Player[]> {
+    this.loadToken();
+    return this.http.get<Player[]>(this.baseUrl + 'player/list');
+  }
+
+  getBulkWritePlayers(): Observable<BulkWritePlayers[]> {
+    this.loadToken();
+    return this.http.get<BulkWritePlayers[]>(this.baseUrl + 'player/bulk-upsert', this.httpOptions);
+  }
+
+  bulkWriteRegisteredPlayers(bulkWritePlayers: BulkWritePlayers): Observable<any>{
+      this.loadToken();
+      return this.http.post<BulkWritePlayers>(`${this.baseUrl}player/bulk-upsert`, bulkWritePlayers, this.httpOptions);
+  }
+
+  getRounds(): Observable<Rounds[]> {
+    this.loadToken();
+    return this.http.get<Rounds[]>(this.baseUrl + 'rounds/list');
+  }
+
+  upsertQuarterFinalResults(winners: any): Observable<any> {
+    this.loadToken();
+    return this.http.post<any>(`${this.baseUrl}rounds/upsert-semiFinals`, winners, this.httpOptions);
+  }
+
+  upsertSemiFinalResults(winners: any): Observable<any>{
+    this.loadToken();
+    return this.http.post<BulkWritePlayers>(`${this.baseUrl}rounds/upsert-finals`, winners, this.httpOptions);
+  }
+
+  upsertFinalResults(winners: any): Observable<any>{
+    this.loadToken();
+    return this.http.post<any>(`${this.baseUrl}rounds/upsert-winner`, winners, this.httpOptions);
+  }
+
   authenticate(user: User, userlist: any): Observable<any> {
     let body: any = {};
     body['body'] = user;
     body['userList'] = userlist
-    return this.http.post<any>(this.baseUrl + 'login', body, this.httpOptions);
+    return this.http.post<any>('http://localhost:3000/' + 'login', body, this.httpOptions);
   }
 
   login(pair: any): Observable<any> {
@@ -103,18 +140,27 @@ export class RestDataSource {
 
   storeUserData(token: any, user: User): void {
     localStorage.setItem('id_token', 'Bearer ' + token);
-    localStorage.setItem('user', JSON.stringify(user));
-   
-
     this.authToken = token;
+
+    localStorage.setItem('user', JSON.stringify(user));
     this.user = user;
+  }
+
+  private loadUser(): void {
+    this.user = JSON.parse(localStorage.getItem('user')!);
+  }
+
+  private loadToken(): void {
+    const token = localStorage.getItem('id_token');
+    this.authToken = token || '';
+    this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.authToken);
   }
 
   logout(): Observable<any> {
     this.authToken = null || '';
     this.user = null;
     localStorage.clear();
-    return this.http.get<any>(this.baseUrl + 'logout', this.httpOptions);
+    return this.http.get<any>('http://localhost:3000/' + 'logout', this.httpOptions);
   }
 
   loggedIn(): boolean {
@@ -132,14 +178,13 @@ export class RestDataSource {
         return '';
   }
 
-  private loadUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user')!);
-  }
-
-  private loadToken(): void {
-    const token = localStorage.getItem('id_token');
-    this.authToken = token || '';
-    this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.authToken);
+  getUsername(): String {
+    this.loadUser();
+    
+    if (this.user != null)
+      return this.user.username;
+    else
+        return '';
   }
 }
 

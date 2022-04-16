@@ -25,6 +25,7 @@ export class TournamentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.title = this.route.snapshot.data['title'];
+    this.repository.refresh();
   }
 
   get tournaments(): Tournament[]
@@ -37,18 +38,48 @@ export class TournamentListComponent implements OnInit {
     this.router.navigateByUrl('/tournament/edit/' + id);
   }
 
+  registerPlayers(id: number): void
+  {
+    this.router.navigateByUrl('/tournament/player/' + id);
+  }
+
+  editQuarterFinals(id: number): void
+  {
+    this.router.navigateByUrl('/tournament/bracket-qf-edit/' + id);
+  }
+  
+  editSemiFinals(id: number): void
+  {
+    this.router.navigateByUrl('/tournament/bracket-sf-edit/' + id);
+  }
+  
+  editFinals(id: number): void
+  {
+    this.router.navigateByUrl('/tournament/bracket-final-edit/' + id);
+  }
+
+  viewSummary(id: number): void
+  {
+    this.router.navigateByUrl('/tournament/bracket/' + id);
+  }
+
   deleteTournament(id: number): void
   {
     this.repository.deleteTournament(id);
     this.router.navigateByUrl('/tournament/list');
   }
 
-  getSplittedISODateString(date: Date): string {
+  getSplittedISODateString(date: Date): string
+  {
     return new Date(date).toISOString().split('T')[0];
   }
 
   isLoggedIn(): boolean
   {    
     return this.repository.authenticated;
+  }
+
+  isOwner(owner: String): boolean{
+    return this.repository.username == owner;
   }
 }

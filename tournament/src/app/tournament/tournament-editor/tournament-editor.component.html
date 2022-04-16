@@ -17,14 +17,14 @@
             <br>
             <!-- Form -->
             <form class="form" [formGroup]="tournamentForm" (ngSubmit)="onSubmit()">
-                <fieldset class="form-group mb-3">
-                  <!--<input type="hidden"
+                <!--<fieldset class="form-group mb-3">
+                  <input type="hidden"
                   name="id"
-                  value="<%= Tournament._id %>">-->
+                  value="<%= Tournament._id %>">
                     <label class="form-label" for="ownerTextField">Owner</label>
                     <input type="text" class="form-control" id="ownerTextField"
                     name="owner" formControlName="owner" required>
-                  </fieldset>
+                  </fieldset>-->
                 <fieldset class="form-group mb-3">
                   <label  class="form-label" for="titleTextField">Title</label>
                   <input type="text" class="form-control" id="titleTextField"
@@ -35,11 +35,12 @@
                   <textarea type="text" class="form-control" id="descriptionTextField"
                   name="description" formControlName="description" required>{{ tournament.description }}</textarea>
                 </fieldset>
+                <!--
                 <fieldset class="form-group mb-3">
                     <label class="form-label" for="playersTextField">Players</label>
                     <input type="text" class="form-control" id="playersTextField"
                     name="players" formControlName="players" required>
-                </fieldset>
+                </fieldset>-->
                 <fieldset class="form-group mb-3">
                     <label class="form-label" for="startDateTextField">Start Date</label>
                     <input type="date" class="form-control" id="startDateTextField"
@@ -50,11 +51,12 @@
                     <input type="date" class="form-control" id="endDateTextField"
                     name="endDate" formControlName="endDate" required>
                 </fieldset>
+                <!--
                 <fieldset class="form-group mb-3">
                     <label class="form-label" for="roundsTextField">Rounds</label>
                     <input type="text" class="form-control" id="roundsTextField"
                     name="rounds" formControlName="rounds" required>
-                </fieldset>
+                </fieldset>-->
                 
                 <!--Check box Session-->
                 <fieldset class="form-group mb-3">
