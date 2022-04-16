@@ -160,6 +160,9 @@ export class RestDataSource {
     this.authToken = null || '';
     this.user = null;
     localStorage.removeItem('user');
+    localStorage.removeItem('id_token');
+
+
     return this.http.get<any>('http://localhost:3000/' + 'logout', this.httpOptions);
   }
 
