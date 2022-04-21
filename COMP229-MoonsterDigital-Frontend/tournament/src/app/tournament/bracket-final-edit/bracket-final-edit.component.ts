@@ -84,8 +84,7 @@
  
    onSubmit() {
      console.log(this.winnerForm.value);
-     this.repository.upsertFinals(this.winnerForm.value);
-     this.router.navigateByUrl('/tournament/bracket/' + this.tournamentId);
+     this.repository.upsertFinals(this.winnerForm.value, this.tournamentId);
    }
  
    returnToTournamentList() {

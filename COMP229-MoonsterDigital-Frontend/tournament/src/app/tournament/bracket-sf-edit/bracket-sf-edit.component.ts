@@ -112,8 +112,7 @@
  
    onSubmit() {
      console.log(this.winnerForm.value);
-     this.repository.upsertSemiFinals(this.winnerForm.value);
-     this.router.navigateByUrl('/tournament/bracket-final-edit/' + this.tournamentId);
+     this.repository.upsertSemiFinals(this.winnerForm.value, this.tournamentId);
    }
  
    returnToTournamentList() {

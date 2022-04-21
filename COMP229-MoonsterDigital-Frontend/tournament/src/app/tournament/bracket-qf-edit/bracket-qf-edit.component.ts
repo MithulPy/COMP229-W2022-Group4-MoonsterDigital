@@ -165,8 +165,7 @@ export class BracketQfEditComponent implements OnInit {
 
   onSubmit() {
     console.log(this.winnerForm.value);
-    this.repository.upsertQuarterFinals(this.winnerForm.value);
-    this.router.navigateByUrl('/tournament/bracket-sf-edit/' + this.tournamentId);
+    this.repository.upsertQuarterFinals(this.winnerForm.value, this.tournamentId);
   }
 
   returnToTournamentList() {
